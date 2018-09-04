@@ -5,7 +5,7 @@ using UnityEngine;
 public class GuardScript : MonoBehaviour {
 
 	public GameObject bullet;
-	GameObject ironSights	;
+	GameObject ironSights;
 	GameObject player;
 	bool playerRad;
 	float sightLine = 20f;
@@ -37,10 +37,11 @@ public class GuardScript : MonoBehaviour {
 
 	void CarryBody(){
 		if(dead){
-			if(Vector2.Distance(this.transform.position, player.transform.position) <= 1){
+			if(Vector2.Distance(this.transform.position, player.transform.position) <= 2){
 				if(Input.GetKeyDown(KeyCode.Q)){
 					transform.SetParent(player.transform);
 					player.GetComponent<FishScript>().carryingBody = true;
+					rb.velocity = Vector2.zero;
 					rb.simulated = false;
 				}
 			}
@@ -55,6 +56,9 @@ public class GuardScript : MonoBehaviour {
 	}
 
 	void CheckDetection(){
+		if(dead){
+			return;
+		}
 		if(!playerRad){
 			noiseDetection -= decayRate;
 			crimeDetection -= decayRate;
@@ -71,27 +75,27 @@ public class GuardScript : MonoBehaviour {
 		if(crimeDetection <= 0){
 			crimeDetection = 0;
 		}
-		if(crimeDetection >= detectionAmount && !dead){
+		if(crimeDetection >= detectionAmount){
 			alertMode = true;
 			Managers.NPCManager.Instance.huntPlayer = true;
 			Managers.NPCManager.Instance.timer = 0f;
 		}
-		if(Managers.NPCManager.Instance.huntPlayer && !dead){
+		if(Managers.NPCManager.Instance.huntPlayer){
 			if(noiseDetection >= detectionAmount){
 				alertMode = true;
 				Managers.NPCManager.Instance.timer = 0f;
 			}
 		}
-		if(seePlayer && !dead && Managers.NPCManager.Instance.huntPlayer){
+		if(seePlayer && Managers.NPCManager.Instance.huntPlayer){
 			alertMode = true;
 		}
-		if(!dead && alertMode && !Managers.NPCManager.Instance.huntPlayer){
+		if(alertMode && !Managers.NPCManager.Instance.huntPlayer){
 			alertMode = false;
 		}
 	}
 
 	IEnumerator FireAtPlayer(){
-		if(seePlayer && !firing && alertMode){
+		if(seePlayer && !firing && alertMode && !dead){
 			firing = true;
 			Instantiate(bullet, ironSights.transform.position, ironSights.transform.rotation);
 			yield return new WaitForSeconds(.5f);
@@ -120,7 +124,10 @@ public class GuardScript : MonoBehaviour {
 	}
 
 	void HuntPlayer(){
-		if(alertMode && !dead){
+		if(dead){
+			return;
+		}
+		if(alertMode){
 			transform.position = Vector2.MoveTowards(transform.position, player.transform.position, Time.deltaTime);
 			Vector3 dir = player.transform.position - transform.position;
 			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
@@ -170,6 +177,7 @@ public class GuardScript : MonoBehaviour {
 	}
 
 	void DeathSequence(){
+		Debug.Log(gameObject.name + " died.");
 		dead = true;
 		//TODO: Do something here
 	}
