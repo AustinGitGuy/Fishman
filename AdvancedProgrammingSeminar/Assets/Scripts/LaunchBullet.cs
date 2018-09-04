@@ -5,16 +5,16 @@ using UnityEngine;
 public class LaunchBullet : MonoBehaviour {
 
 	Rigidbody2D rb;
-	float forceAmount = 500f;
+	float forceAmount = 250f;
 
 	void Start(){
 		rb = GetComponent<Rigidbody2D>();
-		rb.AddRelativeForce(Vector3.forward * forceAmount);
+		rb.AddForce((Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized * forceAmount);
 		Destroy(this.gameObject, 10f);
 	}
 
-	void OnCollisionEnter(Collision col){
-		if(col.gameObject.tag == "Target"){
+	void OnCollisionEnter2D(Collision2D col){
+		if(col.gameObject.tag == "Target" || col.gameObject.tag == "Client" || col.gameObject.tag == "Guard" || col.gameObject.tag == "Civilian"){
 			Destroy(this.gameObject);
 		} 
 		else {

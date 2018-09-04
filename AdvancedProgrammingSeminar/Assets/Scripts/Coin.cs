@@ -6,7 +6,7 @@ public class Coin : MonoBehaviour {
 
 	public int goldValue = 1;
 
-	void OnTriggerEnter(Collider col){
+	void OnTriggerEnter2D(Collider2D col){
 		//When it collides with the player, add the gold value then delete it
 		if(col.gameObject.tag == "Player"){
 			Managers.PlayerManager.Instance.CoinCollected(goldValue);
