@@ -25,25 +25,27 @@ public class GiveMission : MonoBehaviour {
 
 	IEnumerator GetInput(){
 		if(Input.GetKeyDown(KeyCode.E) && !viewed){
-			if(Vector3.Distance(player.transform.position, this.transform.position) <= 5){
+			if(Vector3.Distance(player.transform.position, this.transform.position) <= 3){
 				viewed = true;
-				if(!target.GetComponent<TargetScript>().dead){
+				if(!target.GetComponent<GuardScript>().dead){
+					Managers.PlayerManager.Instance.cutscene = true;
 					canvas.SetActive(false);
 					GameObject view = target.transform.Find("View").gameObject;
 					Vector3 camPos = cam.transform.position;
-					cam.transform.position = view.transform.position;
+					cam.transform.position = new Vector3(view.transform.position.x, view.transform.position.y, -5);
 					target.GetComponent<TargetScript>().text.SetActive(true);
 					yield return new WaitForSeconds(10f);
 					cam.transform.position = camPos;
 					canvas.SetActive(true);
 					target.GetComponent<TargetScript>().text.SetActive(false);
 					exclamation.GetComponent<SpriteRenderer>().sprite = question;
+					Managers.PlayerManager.Instance.cutscene = false;
 				}
 			}
 		}
 		if(Input.GetKeyDown(KeyCode.E) && viewed){
 			if(Vector3.Distance(player.transform.position, this.transform.position) <= 5){
-				if(target.GetComponent<TargetScript>().dead){
+				if(target.GetComponent<GuardScript>().dead){
 					Managers.PlayerManager.Instance.CoinCollected(1000);
 					exclamation.SetActive(false);
 				}

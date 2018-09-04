@@ -7,11 +7,12 @@ namespace Managers{
 
 		public int totalCollectedCoins = 0;
 		public string weaponName;
+		public bool cutscene;
 
 		GameObject playerObject;
 
 		void Start(){
-			Cursor.visible = false;
+			//Application.targetFrameRate = 60;
 			GetPlayer();
 		}
 

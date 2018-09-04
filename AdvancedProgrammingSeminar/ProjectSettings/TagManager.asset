@@ -7,6 +7,11 @@ TagManager:
   - Target
   - Client
   - Projectile
+  - Noise
+  - Hiding
+  - Blockable
+  - Civilian
+  - Guard
   layers:
   - Default
   - TransparentFX
@@ -41,6 +46,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Flooring
+    uniqueID: 3656871537
+    locked: 0
+  - name: Furniture
+    uniqueID: 137229769
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Hiding
+    uniqueID: 374574299
     locked: 0
