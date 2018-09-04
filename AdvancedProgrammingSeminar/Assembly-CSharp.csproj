@@ -53,15 +53,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\LaunchAtPlayer.cs" />
      <Compile Include="Assets\Scripts\Attacks.cs" />
      <Compile Include="Assets\Scripts\Coin.cs" />
      <Compile Include="Assets\Scripts\FishScript.cs" />
      <Compile Include="Assets\Scripts\GiveMission.cs" />
      <Compile Include="Assets\Scripts\GoldNumText.cs" />
      <Compile Include="Assets\Scripts\GuardScript.cs" />
+     <Compile Include="Assets\Scripts\LaunchAtPlayer.cs" />
      <Compile Include="Assets\Scripts\LaunchBullet.cs" />
      <Compile Include="Assets\Scripts\NPCManager.cs" />
+     <Compile Include="Assets\Scripts\PatrolScript.cs" />
      <Compile Include="Assets\Scripts\PlayerFire.cs" />
      <Compile Include="Assets\Scripts\PlayerManager.cs" />
      <Compile Include="Assets\Scripts\PlayerVehicle.cs" />
