@@ -16,11 +16,11 @@ public class LaunchAtPlayer : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D col){
-		if(col.gameObject.tag == "Player"){
-			Destroy(this.gameObject);
-		} 
-		else {
+		if(col.gameObject.tag == "Guard" || col.gameObject.tag == "Target"){
 			Destroy(this.gameObject, 1f);
+		}
+		else {
+			Destroy(this.gameObject);
 		}
 	}
 }
