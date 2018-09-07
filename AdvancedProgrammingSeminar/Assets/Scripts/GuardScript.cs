@@ -11,8 +11,7 @@ public class GuardScript : MonoBehaviour {
 	float sightLine = 20f;
 	float decayRate = .2f;
 	float detectionAmount = 7f;
-	float upperAngle = 6f;
-	float lowerAngle = -16f;
+	float detAngle = 30f;
 	public float noiseDetection;
 	public float crimeDetection;
 	bool alertMode;
@@ -20,6 +19,7 @@ public class GuardScript : MonoBehaviour {
 	public bool dead;
 	public bool seePlayer;
 	bool firing;
+	bool pickedUp;
 
 	void Start(){
 		ironSights = transform.Find("IronSights").gameObject;
@@ -28,7 +28,7 @@ public class GuardScript : MonoBehaviour {
 	}
 
 	void Update(){
-		CheckDetection();
+		StartCoroutine(CheckDetection());
 		HuntPlayer();
 		CheckSight();
 		CarryBody();
@@ -37,8 +37,9 @@ public class GuardScript : MonoBehaviour {
 
 	void CarryBody(){
 		if(dead){
-			if(Vector2.Distance(this.transform.position, player.transform.position) <= 2){
+			if(Vector2.Distance(this.transform.position, player.transform.position) <= 2 && !player.GetComponent<FishScript>().carryingBody && !pickedUp){
 				if(Input.GetKeyDown(KeyCode.Q)){
+					pickedUp = true;
 					transform.SetParent(player.transform);
 					player.GetComponent<FishScript>().carryingBody = true;
 					rb.velocity = Vector2.zero;
@@ -46,18 +47,21 @@ public class GuardScript : MonoBehaviour {
 				}
 			}
 			else {
-				if(Input.GetKeyDown(KeyCode.Q) && player.GetComponent<FishScript>().carryingBody){
+				if(Input.GetKeyDown(KeyCode.Q) && player.GetComponent<FishScript>().carryingBody && pickedUp){
+					pickedUp = false;
 					transform.SetParent(null);
 					player.GetComponent<FishScript>().carryingBody = false;
 					rb.simulated = true;
+					rb.velocity = Vector2.zero;
+					rb.angularVelocity = 0f;
 				}
 			}
 		}
 	}
 
-	void CheckDetection(){
+	IEnumerator CheckDetection(){
 		if(dead){
-			return;
+			yield return null;
 		}
 		if(!playerRad){
 			noiseDetection -= decayRate;
@@ -76,9 +80,12 @@ public class GuardScript : MonoBehaviour {
 			crimeDetection = 0;
 		}
 		if(crimeDetection >= detectionAmount){
-			alertMode = true;
-			Managers.NPCManager.Instance.huntPlayer = true;
-			Managers.NPCManager.Instance.timer = 0f;
+			yield return new WaitForSeconds(1f);
+			if(!dead){
+				alertMode = true;
+				Managers.NPCManager.Instance.huntPlayer = true;
+				Managers.NPCManager.Instance.timer = 0f;
+			}
 		}
 		if(Managers.NPCManager.Instance.huntPlayer){
 			if(noiseDetection >= detectionAmount){
@@ -89,6 +96,14 @@ public class GuardScript : MonoBehaviour {
 		if(seePlayer && Managers.NPCManager.Instance.huntPlayer){
 			alertMode = true;
 		}
+		if(seePlayer && player.GetComponent<FishScript>().carryingBody){
+			yield return new WaitForSeconds(1f);
+			if(!dead){
+				alertMode = true;
+				Managers.NPCManager.Instance.huntPlayer = true;
+				Managers.NPCManager.Instance.timer = 0f;
+			}
+		}
 		if(alertMode && !Managers.NPCManager.Instance.huntPlayer){
 			alertMode = false;
 		}
@@ -98,7 +113,7 @@ public class GuardScript : MonoBehaviour {
 		if(seePlayer && !firing && alertMode && !dead){
 			firing = true;
 			Instantiate(bullet, ironSights.transform.position, ironSights.transform.rotation);
-			yield return new WaitForSeconds(.5f);
+			yield return new WaitForSeconds(.75f);
 			firing = false;
 		}
 	}
@@ -106,10 +121,11 @@ public class GuardScript : MonoBehaviour {
 	void CheckSight(){
 		Vector2 playerDir = player.transform.position - transform.position;
 		float playerDist = Vector2.Distance(player.transform.position, transform.position);
-		if(playerDist <= sightLine && (Vector2.SignedAngle(transform.position, player.transform.position) <= upperAngle && 
-			Vector2.SignedAngle(transform.position, player.transform.position) >= lowerAngle)){
+		Vector3 dir = player.transform.position - transform.position;
+		float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
+		if(transform.rotation.z >= .8){
+			if(playerDist <= sightLine && (angle >= detAngle || angle <= -detAngle)){
 			RaycastHit2D[] sight = Physics2D.RaycastAll(transform.position, playerDir, playerDist);
-			Debug.DrawRay(transform.position, playerDir, Color.red);
 			foreach(RaycastHit2D hit in sight){
 				if(hit.transform.gameObject.tag == "Blockable" || hit.transform.gameObject.tag == "Hiding"){
 					seePlayer = false;
@@ -117,9 +133,27 @@ public class GuardScript : MonoBehaviour {
 				}
 			}
 			seePlayer = true;
+			Debug.DrawRay(transform.position, playerDir, Color.red);
+			}
+			else {
+				seePlayer = false;
+			}
 		}
 		else {
-			seePlayer = false;
+			if(playerDist <= sightLine && (angle <= detAngle && angle >= -detAngle)){
+			RaycastHit2D[] sight = Physics2D.RaycastAll(transform.position, playerDir, playerDist);
+			foreach(RaycastHit2D hit in sight){
+				if(hit.transform.gameObject.tag == "Blockable" || hit.transform.gameObject.tag == "Hiding"){
+					seePlayer = false;
+					return;
+				}
+			}
+			seePlayer = true;
+			Debug.DrawRay(transform.position, playerDir, Color.red);
+			}
+			else {
+				seePlayer = false;
+			}
 		}
 	}
 
@@ -153,8 +187,9 @@ public class GuardScript : MonoBehaviour {
 			if(col.GetComponent<GuardScript>().dead){
 				Vector2 targetDir = col.transform.position - transform.position;
 				float targetDist = Vector2.Distance(col.transform.position, transform.position);
-				if(targetDist <= sightLine && (Vector2.SignedAngle(transform.position, col.transform.position) <= upperAngle && 
-					Vector2.SignedAngle(transform.position, col.transform.position) >= lowerAngle)){
+				Vector3 dir = col.transform.position - transform.position;
+				float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
+				if(targetDist <= sightLine && (angle <= detAngle && angle >= -detAngle)){
 					RaycastHit2D[] sight = Physics2D.RaycastAll(transform.position, targetDir, targetDist);
 					Debug.DrawRay(transform.position, targetDir, Color.red);
 					foreach(RaycastHit2D hit in sight){
