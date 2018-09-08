@@ -10,6 +10,8 @@ public class GiveMission : MonoBehaviour {
 	GameObject exclamation;
 	public GameObject target;
 	public Sprite question;
+	public int id;
+	public int completionBonus;
 	bool viewed;
 
 	void Start(){
@@ -24,29 +26,41 @@ public class GiveMission : MonoBehaviour {
 	}
 
 	IEnumerator GetInput(){
-		if(Input.GetKeyDown(KeyCode.E) && !viewed){
+		if(Input.GetKeyDown(KeyCode.E) && !Managers.QuestManager.Instance.questsAccepted[id]){
 			if(Vector3.Distance(player.transform.position, this.transform.position) <= 3){
 				viewed = true;
 				if(!target.GetComponent<GuardScript>().dead){
+					Managers.QuestManager.Instance.check.SetActive(true);
+					Managers.QuestManager.Instance.x.SetActive(true);
 					Managers.PlayerManager.Instance.cutscene = true;
 					canvas.SetActive(false);
 					GameObject view = target.transform.Find("View").gameObject;
 					Vector3 camPos = cam.transform.position;
 					cam.transform.position = new Vector3(view.transform.position.x, view.transform.position.y, -5);
 					target.GetComponent<TargetScript>().text.SetActive(true);
-					yield return new WaitForSeconds(10f);
+					while(!Managers.QuestManager.Instance.checkPress && !Managers.QuestManager.Instance.xPress){
+						yield return null;
+					}
+					if(Managers.QuestManager.Instance.checkPress){
+						Managers.QuestManager.Instance.questsAccepted[id] = true;
+						exclamation.GetComponent<SpriteRenderer>().sprite = question;
+					}
+					Managers.QuestManager.Instance.checkPress = false;
+					Managers.QuestManager.Instance.xPress = false;
 					cam.transform.position = camPos;
 					canvas.SetActive(true);
 					target.GetComponent<TargetScript>().text.SetActive(false);
-					exclamation.GetComponent<SpriteRenderer>().sprite = question;
+					Managers.QuestManager.Instance.check.SetActive(false);
+					Managers.QuestManager.Instance.x.SetActive(false);
 					Managers.PlayerManager.Instance.cutscene = false;
 				}
 			}
 		}
-		if(Input.GetKeyDown(KeyCode.E) && viewed){
-			if(Vector3.Distance(player.transform.position, this.transform.position) <= 5){
+		else if(Input.GetKeyDown(KeyCode.E) && viewed){
+			if(Vector3.Distance(player.transform.position, this.transform.position) <= 3){
 				if(target.GetComponent<GuardScript>().dead){
-					Managers.PlayerManager.Instance.CoinCollected(1000);
+					Managers.PlayerManager.Instance.CoinCollected(completionBonus);
+					Managers.QuestManager.Instance.questsCompleted[id] = true;
 					exclamation.SetActive(false);
 				}
 			}

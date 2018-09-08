@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 60181925624382422}
   - component: {fileID: 50271560023248748}
   - component: {fileID: 114432879552027962}
-  - component: {fileID: 114672138197562628}
+  - component: {fileID: 114853621764482002}
   m_Layer: 0
   m_Name: Guard
   m_TagString: Guard
@@ -188,7 +188,7 @@ MonoBehaviour:
   crimeDetection: 0
   dead: 0
   seePlayer: 0
---- !u!114 &114672138197562628
+--- !u!114 &114853621764482002
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -196,12 +196,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1620709757525370}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f997914e7c2d91047825cd34b0ef3bb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 862c9aace56d7cc4e86726c0fc223b5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xWalk: 10
-  yWalk: 0
-  lineWalk: 1
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  walkSpeed: 5
+  runSpeed: 10
+  isMoving: 0
 --- !u!212 &212392280662195012
 SpriteRenderer:
   m_ObjectHideFlags: 1

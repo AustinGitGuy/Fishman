@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114046695302233756}
   - component: {fileID: 58826198567061624}
   - component: {fileID: 50143890909241358}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BloodBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
