@@ -185,6 +185,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   question: {fileID: 21300000, guid: 778e5f8641a285245964db00628e2ea2, type: 3}
+  id: 0
+  completionBonus: 1000
 --- !u!212 &212182042935808658
 SpriteRenderer:
   m_ObjectHideFlags: 1
