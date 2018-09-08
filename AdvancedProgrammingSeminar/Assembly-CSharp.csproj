@@ -61,8 +61,9 @@
      <Compile Include="Assets\Scripts\GuardScript.cs" />
      <Compile Include="Assets\Scripts\LaunchAtPlayer.cs" />
      <Compile Include="Assets\Scripts\LaunchBullet.cs" />
+     <Compile Include="Assets\Scripts\Navigation\ManualNavPoint.cs" />
+     <Compile Include="Assets\Scripts\Navigation\Navigator.cs" />
      <Compile Include="Assets\Scripts\NPCManager.cs" />
-     <Compile Include="Assets\Scripts\PatrolScript.cs" />
      <Compile Include="Assets\Scripts\PlayerFire.cs" />
      <Compile Include="Assets\Scripts\PlayerManager.cs" />
      <Compile Include="Assets\Scripts\PlayerVehicle.cs" />

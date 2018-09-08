@@ -48,8 +48,8 @@ public class FishScript : MonoBehaviour {
 				noiseLevel = .75f;
 			}
 		}
-		float AngleRad = Mathf.Atan2(Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y, 
-			Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x);
+		float AngleRad = Mathf.Atan2(Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y, Camera.main.ScreenToWorldPoint(Input.mousePosition).x - 
+		transform.position.x);
 		float AngleDeg = (180 / Mathf.PI) * AngleRad;
 		this.transform.rotation = Quaternion.Euler(0, 0, AngleDeg);
     }
