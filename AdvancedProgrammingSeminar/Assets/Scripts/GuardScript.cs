@@ -11,7 +11,7 @@ public class GuardScript : MonoBehaviour {
 	float sightLine = 20f;
 	float decayRate = .2f;
 	float detectionAmount = 7f;
-	float detAngle = 30f;
+	float detAngle = 40f;
 	public float noiseDetection;
 	public float crimeDetection;
 	bool alertMode;
@@ -122,9 +122,8 @@ public class GuardScript : MonoBehaviour {
 		Vector2 playerDir = player.transform.position - transform.position;
 		float playerDist = Vector2.Distance(player.transform.position, transform.position);
 		Vector3 dir = player.transform.position - transform.position;
-		float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
-		if(transform.rotation.z >= .8){
-			if(playerDist <= sightLine && (angle >= detAngle || angle <= -detAngle)){
+		float angle = Vector2.Angle(dir, transform.position);
+		if(playerDist <= sightLine && (Mathf.Abs((angle + transform.eulerAngles.z) - 180) <= detAngle)){
 			RaycastHit2D[] sight = Physics2D.RaycastAll(transform.position, playerDir, playerDist);
 			foreach(RaycastHit2D hit in sight){
 				if(hit.transform.gameObject.tag == "Blockable" || hit.transform.gameObject.tag == "Hiding"){
@@ -134,26 +133,9 @@ public class GuardScript : MonoBehaviour {
 			}
 			seePlayer = true;
 			Debug.DrawRay(transform.position, playerDir, Color.red);
-			}
-			else {
-				seePlayer = false;
-			}
 		}
 		else {
-			if(playerDist <= sightLine && (angle <= detAngle && angle >= -detAngle)){
-			RaycastHit2D[] sight = Physics2D.RaycastAll(transform.position, playerDir, playerDist);
-			foreach(RaycastHit2D hit in sight){
-				if(hit.transform.gameObject.tag == "Blockable" || hit.transform.gameObject.tag == "Hiding"){
-					seePlayer = false;
-					return;
-				}
-			}
-			seePlayer = true;
-			Debug.DrawRay(transform.position, playerDir, Color.red);
-			}
-			else {
-				seePlayer = false;
-			}
+			seePlayer = false;
 		}
 	}
 
