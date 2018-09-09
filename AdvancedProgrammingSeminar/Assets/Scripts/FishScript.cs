@@ -28,7 +28,6 @@ public class FishScript : MonoBehaviour {
     }
 
     void Move(){
-		//TODO: If angle is between 91 to -91 (greater wise) flip the sprite
 		rb.velocity = new Vector2(xMove * moveMod, yMove * moveMod);
 		if(xMove == 0 && yMove == 0){
 			if(hiding){

@@ -19,6 +19,10 @@ public class LaunchAtPlayer : MonoBehaviour {
 		if(col.gameObject.tag == "Guard" || col.gameObject.tag == "Target"){
 			Destroy(this.gameObject, 1f);
 		}
+		else if(col.gameObject.tag == "Player"){
+			Managers.PlayerManager.Instance.health--;
+			Destroy(this.gameObject);
+		}
 		else {
 			Destroy(this.gameObject);
 		}

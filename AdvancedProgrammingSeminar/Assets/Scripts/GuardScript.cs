@@ -5,6 +5,7 @@ using UnityEngine;
 public class GuardScript : MonoBehaviour {
 
 	public GameObject bullet;
+	public Vector3 spawnPos;
 	GameObject ironSights;
 	GameObject player;
 	bool playerRad;
@@ -25,6 +26,7 @@ public class GuardScript : MonoBehaviour {
 		ironSights = transform.Find("IronSights").gameObject;
 		rb = GetComponent<Rigidbody2D>();
 		player = Managers.PlayerManager.Instance.GetPlayer();
+		spawnPos = this.transform.position;
 	}
 
 	void Update(){
