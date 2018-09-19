@@ -21,9 +21,12 @@ public class GuardScript : MonoBehaviour {
 	public bool seePlayer;
 	bool firing;
 	bool pickedUp;
+	public bool citizen;
 
 	void Start(){
-		ironSights = transform.Find("IronSights").gameObject;
+		if(!citizen){
+			ironSights = transform.Find("IronSights").gameObject;
+		}
 		rb = GetComponent<Rigidbody2D>();
 		player = Managers.PlayerManager.Instance.GetPlayer();
 		spawnPos = this.transform.position;
@@ -62,7 +65,7 @@ public class GuardScript : MonoBehaviour {
 	}
 
 	IEnumerator CheckDetection(){
-		if(dead){
+		if(dead || citizen){
 			yield return null;
 		}
 		if(!playerRad){
@@ -112,7 +115,7 @@ public class GuardScript : MonoBehaviour {
 	}
 
 	IEnumerator FireAtPlayer(){
-		if(seePlayer && !firing && alertMode && !dead){
+		if(seePlayer && !firing && alertMode && !dead && !citizen){
 			firing = true;
 			Instantiate(bullet, ironSights.transform.position, ironSights.transform.rotation);
 			yield return new WaitForSeconds(.75f);
@@ -142,7 +145,7 @@ public class GuardScript : MonoBehaviour {
 	}
 
 	void HuntPlayer(){
-		if(dead){
+		if(dead || citizen){
 			return;
 		}
 		if(alertMode){
