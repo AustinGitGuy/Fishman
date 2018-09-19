@@ -8,17 +8,29 @@ namespace Managers{
 		public int totalCollectedCoins = 0;
 		public string weaponName;
 		public bool cutscene;
+		public bool redGot;
+		public bool blueGot;
+		public bool greenGot;
 		public float health = 10;
 
 		GameObject SMBlood;
 		GameObject LGBlood;
+		GameObject redCard;
+		GameObject blueCard;
+		GameObject greenCard;
 		GameObject playerObject;
 
 		void Start(){
 			//Application.targetFrameRate = 60;
 			GetPlayer();
+			greenCard = GameObject.Find("GreenCard");
+			redCard = GameObject.Find("RedCard");
+			blueCard = GameObject.Find("BlueCard");
 			SMBlood = GameObject.Find("SMBlood");
 			LGBlood = GameObject.Find("LGBlood");
+			redCard.SetActive(false);
+			blueCard.SetActive(false);
+			greenCard.SetActive(false);
 			SMBlood.SetActive(false);
 			LGBlood.SetActive(false);
 		}
