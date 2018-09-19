@@ -55,6 +55,9 @@ namespace Managers{
 			if(health > 10){
 				health = 10;
 			}
+			redCard.SetActive(redGot);
+			blueCard.SetActive(blueGot);
+			greenCard.SetActive(greenGot);
 		}
 
 		public void CoinCollected(int coinValue){
