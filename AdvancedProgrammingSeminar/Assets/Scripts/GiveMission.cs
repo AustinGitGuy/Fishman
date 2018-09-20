@@ -28,6 +28,7 @@ public class GiveMission : MonoBehaviour {
 	IEnumerator GetInput(){
 		if(Input.GetKeyDown(KeyCode.E) && !Managers.QuestManager.Instance.questsAccepted[id]){
 			if(Vector3.Distance(player.transform.position, this.transform.position) <= 3){
+                Debug.Log("Test");
 				viewed = true;
 				if(!target.GetComponent<GuardScript>().dead){
 					Managers.QuestManager.Instance.check.SetActive(true);
@@ -56,7 +57,7 @@ public class GiveMission : MonoBehaviour {
 				}
 			}
 		}
-		else if(Input.GetKeyDown(KeyCode.E) && viewed){
+		if(Input.GetKeyDown(KeyCode.E) && viewed){
 			if(Vector3.Distance(player.transform.position, this.transform.position) <= 3){
 				if(target.GetComponent<GuardScript>().dead){
 					Managers.PlayerManager.Instance.CoinCollected(completionBonus);

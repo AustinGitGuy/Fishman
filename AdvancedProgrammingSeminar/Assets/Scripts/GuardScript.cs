@@ -206,8 +206,11 @@ public class GuardScript : MonoBehaviour {
 	}
 
 	public void DeathSequence(){
+        if(GetComponent<Navigator>() != null){
+            GetComponent<Navigator>().StopAllMovements();
+        }
 		Debug.Log(gameObject.name + " died.");
-		GetComponent<SpriteRenderer>().color = Color.green;
+		GetComponent<SpriteRenderer>().color = new Color(0, .6f, 0);
 		rb.simulated = false;
 		rb.velocity = Vector2.zero;
 		rb.angularVelocity = 0f;

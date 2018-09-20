@@ -15,17 +15,17 @@ public class KeyCard : MonoBehaviour {
 		if(GetComponent<GuardScript>().dead && !playerGotCard){
 			if(color == "Red"){
 				Debug.Log("Player got red card");
-				Managers.PlayerManager.Instance.redGot = true;
+				Managers.PlayerManager.Instance.redNum++;
 				playerGotCard = true;
 			}
 			if(color == "Blue"){
 				Debug.Log("Player got blue card");
-				Managers.PlayerManager.Instance.blueGot = true;
+                Managers.PlayerManager.Instance.blueNum++;
 				playerGotCard = true;
 			}
 			if(color == "Green"){
 				Debug.Log("Player got green card");
-				Managers.PlayerManager.Instance.greenGot = true;
+				Managers.PlayerManager.Instance.greenNum++;
 				playerGotCard = true;
 			}
 		}
