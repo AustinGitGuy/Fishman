@@ -53,7 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\KeyCard.cs" />
+     <Compile Include="Assets\MeleeAttack.cs" />
      <Compile Include="Assets\Scripts\Attacks.cs" />
      <Compile Include="Assets\Scripts\Coin.cs" />
      <Compile Include="Assets\Scripts\DoorOpen.cs" />
@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\GiveMission.cs" />
      <Compile Include="Assets\Scripts\GoldNumText.cs" />
      <Compile Include="Assets\Scripts\GuardScript.cs" />
+     <Compile Include="Assets\Scripts\KeyCard.cs" />
      <Compile Include="Assets\Scripts\LaunchAtPlayer.cs" />
      <Compile Include="Assets\Scripts\LaunchBullet.cs" />
      <Compile Include="Assets\Scripts\Navigation\ManualNavPoint.cs" />

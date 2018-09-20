@@ -56,7 +56,6 @@ public class GuardScript : MonoBehaviour {
 					pickedUp = false;
 					transform.SetParent(null);
 					player.GetComponent<FishScript>().carryingBody = false;
-					rb.simulated = true;
 					rb.velocity = Vector2.zero;
 					rb.angularVelocity = 0f;
 				}
@@ -85,6 +84,14 @@ public class GuardScript : MonoBehaviour {
 			crimeDetection = 0;
 		}
 		if(crimeDetection >= detectionAmount){
+			yield return new WaitForSeconds(1f);
+			if(!dead){
+				alertMode = true;
+				Managers.NPCManager.Instance.huntPlayer = true;
+				Managers.NPCManager.Instance.timer = 0f;
+			}
+		}
+		if(seePlayer && crimeDetection >= 1){
 			yield return new WaitForSeconds(1f);
 			if(!dead){
 				alertMode = true;
@@ -198,8 +205,13 @@ public class GuardScript : MonoBehaviour {
 		}
 	}
 
-	void DeathSequence(){
+	public void DeathSequence(){
 		Debug.Log(gameObject.name + " died.");
+		GetComponent<SpriteRenderer>().color = Color.green;
+		rb.simulated = false;
+		rb.velocity = Vector2.zero;
+		rb.angularVelocity = 0f;
+		GetComponent<PolygonCollider2D>().isTrigger = true;
 		dead = true;
 		//TODO: Do something here
 	}
