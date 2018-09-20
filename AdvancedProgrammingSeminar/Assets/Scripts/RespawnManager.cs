@@ -25,6 +25,7 @@ namespace Managers {
 					if(targets[c].GetComponent<TargetScript>().id == i){
 						if(!questsCompleted[i]){
 							targets[c].GetComponent<GuardScript>().dead = false;
+							targets[c].GetComponent<SpriteRenderer>().color = Color.white;
 							targets[c].transform.position = targets[c].GetComponent<GuardScript>().spawnPos;
 						}
 					}
@@ -32,6 +33,7 @@ namespace Managers {
 			}
 			for(int i = 0; i < guards.Length; i++){
 				guards[i].GetComponent<GuardScript>().dead = false;
+				guards[i].GetComponent<SpriteRenderer>().color = Color.white;
 				guards[i].transform.position = guards[i].GetComponent<GuardScript>().spawnPos;
 			}
 		}

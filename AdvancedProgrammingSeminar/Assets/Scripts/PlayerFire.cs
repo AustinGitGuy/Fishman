@@ -16,7 +16,7 @@ public class PlayerFire : MonoBehaviour {
 	}
 
 	void Fire(){
-		if(Input.GetMouseButtonDown(0) && Input.GetMouseButton(1)){
+		if(Input.GetMouseButton(1)){
 			this.gameObject.GetComponent<FishScript>().crimeLevel += 20f;
 			Instantiate(objFire, ironSights.transform.position, ironSights.transform.rotation);
 		}
