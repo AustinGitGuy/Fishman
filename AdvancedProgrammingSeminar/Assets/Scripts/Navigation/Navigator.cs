@@ -17,14 +17,13 @@ public class Navigator : MonoBehaviour
 		rb = GetComponent<Rigidbody2D>();
 	}	
 	void Update(){
-		if(!isMoving){
+		if(!isMoving && !GetComponent<GuardScript>().dead){
 			StartCoroutine(MoveCharacter_Patrol(MoveType.Run, patrolPoints));
 		}
 		rb.angularVelocity = 0f;
 	}
 
-	public IEnumerator MoveCharacter_Patrol(MoveType movetype, List<ManualNavPoint> manualNavPoints)
-	{
+	public IEnumerator MoveCharacter_Patrol(MoveType movetype, List<ManualNavPoint> manualNavPoints){
 		//Character will be moving
 		isMoving = true;
 
@@ -105,8 +104,7 @@ public class Navigator : MonoBehaviour
 		return newSpeed;
 	}
 
-	public void StopAllMovements()
-	{
+	public void StopAllMovements(){
 		this.StopAllCoroutines();
 		isMoving = false;
 	}

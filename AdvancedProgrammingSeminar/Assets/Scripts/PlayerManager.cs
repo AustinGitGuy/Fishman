@@ -8,9 +8,11 @@ namespace Managers{
 		public int totalCollectedCoins = 0;
 		public string weaponName;
 		public bool cutscene;
-		public bool redGot;
-		public bool blueGot;
-		public bool greenGot;
+
+        public int redNum;
+        public int greenNum;
+        public int blueNum;
+
 		public float health = 10;
 
 		GameObject SMBlood;
@@ -55,9 +57,24 @@ namespace Managers{
 			if(health > 10){
 				health = 10;
 			}
-			redCard.SetActive(redGot);
-			blueCard.SetActive(blueGot);
-			greenCard.SetActive(greenGot);
+            if(redNum > 0){
+                redCard.SetActive(true);
+            }
+            else {
+                redCard.SetActive(false);
+            }
+            if(blueNum > 0){
+                blueCard.SetActive(true);
+            }
+            else {
+                blueCard.SetActive(false);
+            }
+            if(greenNum > 0){
+                greenCard.SetActive(true);
+            }
+            else {
+                greenCard.SetActive(false);
+            }
 		}
 
 		public void CoinCollected(int coinValue){
