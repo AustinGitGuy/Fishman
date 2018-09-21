@@ -15,7 +15,7 @@ public class GuardScript : MonoBehaviour {
 	float detAngle = 40f;
 	public float noiseDetection;
 	public float crimeDetection;
-	bool alertMode;
+	public bool alertMode;
 	Rigidbody2D rb;
 	public bool dead;
 	public bool seePlayer;
@@ -84,7 +84,7 @@ public class GuardScript : MonoBehaviour {
 			crimeDetection = 0;
 		}
 		if(crimeDetection >= detectionAmount){
-			yield return new WaitForSeconds(1f);
+			yield return new WaitForSeconds(.5f);
 			if(!dead){
 				alertMode = true;
 				Managers.NPCManager.Instance.huntPlayer = true;
@@ -92,7 +92,7 @@ public class GuardScript : MonoBehaviour {
 			}
 		}
 		if(seePlayer && crimeDetection >= 1){
-			yield return new WaitForSeconds(1f);
+			yield return new WaitForSeconds(.5f);
 			if(!dead){
 				alertMode = true;
 				Managers.NPCManager.Instance.huntPlayer = true;
@@ -109,7 +109,7 @@ public class GuardScript : MonoBehaviour {
 			alertMode = true;
 		}
 		if(seePlayer && player.GetComponent<FishScript>().carryingBody){
-			yield return new WaitForSeconds(1f);
+			yield return new WaitForSeconds(.5f);
 			if(!dead){
 				alertMode = true;
 				Managers.NPCManager.Instance.huntPlayer = true;
@@ -125,7 +125,7 @@ public class GuardScript : MonoBehaviour {
 		if(seePlayer && !firing && alertMode && !dead && !citizen){
 			firing = true;
 			Instantiate(bullet, ironSights.transform.position, ironSights.transform.rotation);
-			yield return new WaitForSeconds(.75f);
+			yield return new WaitForSeconds(.5f);
 			firing = false;
 		}
 	}

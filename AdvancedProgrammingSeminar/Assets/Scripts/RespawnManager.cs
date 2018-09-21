@@ -18,14 +18,17 @@ namespace Managers {
 		}
 		public void Respawn(){
 			Managers.PlayerManager.Instance.health = 10f;
-			Managers.NPCManager.Instance.huntPlayer = false;
 			player.transform.position = spawnPoint;
-			for(int i = 0; i < questsCompleted.Count; i++){
+            Managers.NPCManager.Instance.huntPlayer = false;
+            for(int i = 0; i < questsCompleted.Count; i++){
 				for(int c = 0; c < targets.Length; c++){
 					if(targets[c].GetComponent<TargetScript>().id == i){
 						if(!questsCompleted[i]){
 							targets[c].GetComponent<GuardScript>().dead = false;
-							targets[c].GetComponent<SpriteRenderer>().color = Color.white;
+                            targets[i].GetComponent<GuardScript>().alertMode = false;
+                            targets[i].GetComponent<GuardScript>().noiseDetection = 0f;
+                            targets[i].GetComponent<GuardScript>().crimeDetection = 0f;
+                            targets[c].GetComponent<SpriteRenderer>().color = Color.white;
 							targets[c].transform.position = targets[c].GetComponent<GuardScript>().spawnPos;
 						}
 					}
@@ -33,9 +36,13 @@ namespace Managers {
 			}
 			for(int i = 0; i < guards.Length; i++){
 				guards[i].GetComponent<GuardScript>().dead = false;
-				guards[i].GetComponent<SpriteRenderer>().color = Color.white;
+                guards[i].GetComponent<GuardScript>().alertMode = false;
+                guards[i].GetComponent<GuardScript>().noiseDetection = 0f;
+                guards[i].GetComponent<GuardScript>().crimeDetection = 0f;
+                guards[i].GetComponent<SpriteRenderer>().color = Color.white;
 				guards[i].transform.position = guards[i].GetComponent<GuardScript>().spawnPos;
 			}
-		}
+            Managers.NPCManager.Instance.huntPlayer = false;
+        }
 	}
 }

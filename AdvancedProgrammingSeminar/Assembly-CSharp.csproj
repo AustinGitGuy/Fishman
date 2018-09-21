@@ -61,9 +61,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ChandelierFall.cs" />
-    <Compile Include="Assets\PowerSwitch.cs" />
     <Compile Include="Assets\Scripts\Attacks.cs" />
+    <Compile Include="Assets\Scripts\ChandelierFall.cs" />
     <Compile Include="Assets\Scripts\Coin.cs" />
     <Compile Include="Assets\Scripts\DoorOpen.cs" />
     <Compile Include="Assets\Scripts\FishScript.cs" />
@@ -80,13 +79,14 @@
     <Compile Include="Assets\Scripts\PlayerFire.cs" />
     <Compile Include="Assets\Scripts\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\PlayerVehicle.cs" />
+    <Compile Include="Assets\Scripts\PowerSwitch.cs" />
     <Compile Include="Assets\Scripts\QuestManager.cs" />
     <Compile Include="Assets\Scripts\RespawnManager.cs" />
     <Compile Include="Assets\Scripts\SaveManager.cs" />
     <Compile Include="Assets\Scripts\Singleton.cs" />
     <Compile Include="Assets\Scripts\TargetScript.cs" />
     <Compile Include="Assets\Scripts\WeaponDisplay.cs" />
-    <Compile Include="Assets\WireScript.cs" />
+    <Compile Include="Assets\Scripts\WireScript.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/student/Documents/Austin AI/AdvancedSeminar/AdvancedProgrammingSeminar/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
