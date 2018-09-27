@@ -5,7 +5,7 @@ using UnityEngine;
 public class LaunchBullet : MonoBehaviour {
 
 	Rigidbody2D rb;
-	float forceAmount = 500f;
+	float forceAmount = 1000f;
 	GameObject player;
 
 	void Start(){

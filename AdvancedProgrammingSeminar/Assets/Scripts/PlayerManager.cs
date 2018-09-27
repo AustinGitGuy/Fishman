@@ -13,7 +13,7 @@ namespace Managers{
         public int greenNum;
         public int blueNum;
 
-		public float health = 10;
+		public float health = 5;
 
 		GameObject SMBlood;
 		GameObject LGBlood;
@@ -38,13 +38,13 @@ namespace Managers{
 		}
 
 		void Update(){
-			if(health < 10){
+			if(health < 5){
 				SMBlood.SetActive(true);
 			}
 			else {
 				SMBlood.SetActive(false);
 			}
-			if(health < 5){
+			if(health < 3){
 				LGBlood.SetActive(true);
 			}
 			else {
@@ -54,8 +54,8 @@ namespace Managers{
 				Managers.RespawnManager.Instance.Respawn();
 			}
 			health += .005f;
-			if(health > 10){
-				health = 10;
+			if(health > 5){
+				health = 5;
 			}
             if(redNum > 0){
                 redCard.SetActive(true);
