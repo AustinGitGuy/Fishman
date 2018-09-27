@@ -206,6 +206,7 @@ MonoBehaviour:
   spawnPos: {x: 0, y: 0, z: 0}
   noiseDetection: 0
   crimeDetection: 0
+  alertMode: 0
   dead: 0
   seePlayer: 0
   citizen: 0
