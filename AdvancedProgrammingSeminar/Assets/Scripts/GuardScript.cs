@@ -22,6 +22,7 @@ public class GuardScript : MonoBehaviour {
 	bool firing;
 	bool pickedUp;
 	public bool citizen;
+	int health = 2;
 
 	void Start(){
 		if(!citizen){
@@ -91,6 +92,9 @@ public class GuardScript : MonoBehaviour {
 				Managers.NPCManager.Instance.timer = 0f;
 			}
 		}
+		else if(!seePlayer){
+			alertMode = false;
+		}
 		if(seePlayer && crimeDetection >= 1){
 			yield return new WaitForSeconds(.5f);
 			if(!dead){
@@ -107,6 +111,7 @@ public class GuardScript : MonoBehaviour {
 		}
 		if(seePlayer && Managers.NPCManager.Instance.huntPlayer){
 			alertMode = true;
+			Managers.NPCManager.Instance.timer = 0f;
 		}
 		if(seePlayer && player.GetComponent<FishScript>().carryingBody){
 			yield return new WaitForSeconds(.5f);
@@ -200,6 +205,9 @@ public class GuardScript : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D col){
 		if(col.gameObject.tag == "Projectile"){
 			if(!dead){
+				health--;
+			}
+			if(health <= 0 && !dead){
 				DeathSequence();
 			}
 		}

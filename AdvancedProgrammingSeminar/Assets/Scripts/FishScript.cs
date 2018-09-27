@@ -34,7 +34,7 @@ public class FishScript : MonoBehaviour {
 				noiseLevel = -.75f;
 			}
 			else {
-				noiseLevel = 0f;
+				noiseLevel = -.5f;
 			}
 			rb.velocity = Vector2.zero;
 			rb.angularVelocity = 0f;
