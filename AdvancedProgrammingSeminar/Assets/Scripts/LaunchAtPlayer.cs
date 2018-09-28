@@ -6,7 +6,7 @@ public class LaunchAtPlayer : MonoBehaviour {
 
 	GameObject player;
 	Rigidbody2D rb;
-	float forceAmount = 1000f;
+	float forceAmount = 750f;
 
 	void Start(){
 		rb = GetComponent<Rigidbody2D>();

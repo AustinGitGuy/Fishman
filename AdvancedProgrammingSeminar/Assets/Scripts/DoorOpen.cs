@@ -25,17 +25,13 @@ public class DoorOpen : MonoBehaviour {
                             if(twoDoors){
                                 door2.transform.position = new Vector2(door2.transform.position.x, door2.transform.position.y + 2);
                             }
-                            else {
-                                door.transform.position = new Vector2(door.transform.position.x, door.transform.position.y + 2);
-                            }
+                            door.transform.position = new Vector2(door.transform.position.x, door.transform.position.y + 2);
                         }
                         else {
                            if(twoDoors){
                                 door2.transform.position = new Vector2(door2.transform.position.x + 2, door2.transform.position.y);
                             }
-                            else {
-                                door.transform.position = new Vector2(door.transform.position.x + 2, door.transform.position.y);
-                            }
+                            door.transform.position = new Vector2(door.transform.position.x + 2, door.transform.position.y);
                         }
                         Managers.PlayerManager.Instance.redNum--;
                         doorOpen = true;
@@ -47,17 +43,13 @@ public class DoorOpen : MonoBehaviour {
                             if(twoDoors){
                                 door2.transform.position = new Vector2(door2.transform.position.x, door2.transform.position.y + 2);
                             }
-                            else {
-                                door.transform.position = new Vector2(door.transform.position.x, door.transform.position.y + 2);
-                            }                     
+                            door.transform.position = new Vector2(door.transform.position.x, door.transform.position.y + 2);                    
                         }
                         else {
                             if(twoDoors){
                                 door2.transform.position = new Vector2(door2.transform.position.x + 2, door2.transform.position.y);
                             }
-                            else {
-                                door.transform.position = new Vector2(door.transform.position.x + 2, door.transform.position.y);
-                            }
+                            door.transform.position = new Vector2(door.transform.position.x + 2, door.transform.position.y);
                         }
 						Managers.PlayerManager.Instance.blueNum--;
                         doorOpen = true;
@@ -69,17 +61,13 @@ public class DoorOpen : MonoBehaviour {
                             if(twoDoors){
                                 door2.transform.position = new Vector2(door2.transform.position.x, door2.transform.position.y + 2);
                             }
-                            else {
-                                door.transform.position = new Vector2(door.transform.position.x, door.transform.position.y + 2);
-                            }
+                            door.transform.position = new Vector2(door.transform.position.x, door.transform.position.y + 2);
                         }
                         else {
                             if(twoDoors){
                                 door2.transform.position = new Vector2(door2.transform.position.x + 2, door2.transform.position.y);
                             }
-                            else {
-                                door.transform.position = new Vector2(door.transform.position.x + 2, door.transform.position.y);
-                            }
+                            door.transform.position = new Vector2(door.transform.position.x + 2, door.transform.position.y);
                         }
 						Managers.PlayerManager.Instance.greenNum--;
                         doorOpen = true;

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace Managers{
 	public class NPCManager : Singleton<NPCManager> {
 
-		public bool huntPlayer;
+		bool huntPlayer;
 		public bool searchMode;
 		public float timer;
 		Text alerted;
@@ -19,18 +19,31 @@ namespace Managers{
 
 		void Update(){
 			if(huntPlayer){
-				alerted.gameObject.SetActive(true);
 				timer+=.016f;
 				if(timer >= 20f){
-					huntPlayer = false;
-					alerted.gameObject.SetActive(false);
-					timer = 0f;
-					//Add the disguise check here
+					DisableHunt();
 				}
 			}
 			if(searchMode){
 				
 			}
+		}
+		
+		public void DisableHunt(){
+			Debug.Log("Disabling Hunt");
+			huntPlayer = false;
+			alerted.gameObject.SetActive(false);
+			timer = 0f;
+		}
+
+		public void EnableHunt(){
+			huntPlayer = true;
+			Debug.Log("Hunting Player");
+			alerted.gameObject.SetActive(true);
+		}
+
+		public bool getHunt(){
+			return huntPlayer;
 		}
 	}
 }

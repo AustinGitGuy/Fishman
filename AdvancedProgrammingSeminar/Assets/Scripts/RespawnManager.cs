@@ -19,30 +19,32 @@ namespace Managers {
 		public void Respawn(){
 			Managers.PlayerManager.Instance.health = 10f;
 			player.transform.position = spawnPoint;
-            Managers.NPCManager.Instance.huntPlayer = false;
+            Managers.NPCManager.Instance.DisableHunt();
             for(int i = 0; i < questsCompleted.Count; i++){
 				for(int c = 0; c < targets.Length; c++){
 					if(targets[c].GetComponent<TargetScript>().id == i){
 						if(!questsCompleted[i]){
-							targets[c].GetComponent<GuardScript>().dead = false;
-                            targets[i].GetComponent<GuardScript>().alertMode = false;
-                            targets[i].GetComponent<GuardScript>().noiseDetection = 0f;
-                            targets[i].GetComponent<GuardScript>().crimeDetection = 0f;
+							GuardScript gI = targets[c].GetComponent<GuardScript>();
+                            gI.alertMode = false;
+                            gI.noiseDetection = 0f;
+                            gI.crimeDetection = 0f;
                             targets[c].GetComponent<SpriteRenderer>().color = Color.white;
-							targets[c].transform.position = targets[c].GetComponent<GuardScript>().spawnPos;
+							targets[c].transform.position = gI.spawnPos;
+							gI.dead = false;
 						}
 					}
 				}
 			}
 			for(int i = 0; i < guards.Length; i++){
-				guards[i].GetComponent<GuardScript>().dead = false;
-                guards[i].GetComponent<GuardScript>().alertMode = false;
-                guards[i].GetComponent<GuardScript>().noiseDetection = 0f;
-                guards[i].GetComponent<GuardScript>().crimeDetection = 0f;
+				GuardScript gI = guards[i].GetComponent<GuardScript>();
+                gI.alertMode = false;
+                gI.noiseDetection = 0f;
+                gI.crimeDetection = 0f;
                 guards[i].GetComponent<SpriteRenderer>().color = Color.white;
-				guards[i].transform.position = guards[i].GetComponent<GuardScript>().spawnPos;
+				guards[i].transform.position = gI.spawnPos;
+				gI.dead = false;
 			}
-            Managers.NPCManager.Instance.huntPlayer = false;
+            Managers.NPCManager.Instance.DisableHunt();
         }
 	}
 }
