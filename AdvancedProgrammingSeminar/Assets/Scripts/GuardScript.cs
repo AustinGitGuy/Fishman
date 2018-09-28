@@ -88,7 +88,7 @@ public class GuardScript : MonoBehaviour {
 			yield return new WaitForSeconds(.5f);
 			if(!dead){
 				alertMode = true;
-				Managers.NPCManager.Instance.huntPlayer = true;
+				Managers.NPCManager.Instance.EnableHunt();
 				Managers.NPCManager.Instance.timer = 0f;
 			}
 		}
@@ -99,17 +99,17 @@ public class GuardScript : MonoBehaviour {
 			yield return new WaitForSeconds(.5f);
 			if(!dead){
 				alertMode = true;
-				Managers.NPCManager.Instance.huntPlayer = true;
+				Managers.NPCManager.Instance.EnableHunt();
 				Managers.NPCManager.Instance.timer = 0f;
 			}
 		}
-		if(Managers.NPCManager.Instance.huntPlayer){
+		if(Managers.NPCManager.Instance.getHunt()){
 			if(noiseDetection >= detectionAmount){
 				alertMode = true;
 				Managers.NPCManager.Instance.timer = 0f;
 			}
 		}
-		if(seePlayer && Managers.NPCManager.Instance.huntPlayer){
+		if(seePlayer && Managers.NPCManager.Instance.getHunt()){
 			alertMode = true;
 			Managers.NPCManager.Instance.timer = 0f;
 		}
@@ -117,11 +117,11 @@ public class GuardScript : MonoBehaviour {
 			yield return new WaitForSeconds(.5f);
 			if(!dead){
 				alertMode = true;
-				Managers.NPCManager.Instance.huntPlayer = true;
+				Managers.NPCManager.Instance.EnableHunt();
 				Managers.NPCManager.Instance.timer = 0f;
 			}
 		}
-		if(alertMode && !Managers.NPCManager.Instance.huntPlayer){
+		if(alertMode && !Managers.NPCManager.Instance.getHunt()){
 			alertMode = false;
 		}
 	}
@@ -160,12 +160,13 @@ public class GuardScript : MonoBehaviour {
 		if(dead || citizen){
 			return;
 		}
-		if(alertMode){
+		if(alertMode && seePlayer){
 			transform.position = Vector2.MoveTowards(transform.position, player.transform.position, Time.deltaTime);
 			Vector3 dir = player.transform.position - transform.position;
 			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
 			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		}
+		//TODO: Move towards sound
 	}
 
 	void OnTriggerExit2D(Collider2D col){
@@ -177,8 +178,8 @@ public class GuardScript : MonoBehaviour {
 	void OnTriggerStay2D(Collider2D col){
 		if(col.tag == "Noise"){
 			playerRad = true;
-			noiseDetection += col.gameObject.GetComponentInParent<FishScript>().noiseLevel / Vector2.Distance(this.gameObject.transform.position, 
-				col.GetComponentInParent<Transform>().position);
+			noiseDetection += col.gameObject.GetComponentInParent<FishScript>().noiseLevel / (Vector2.Distance(this.gameObject.transform.position, 
+				col.GetComponentInParent<Transform>().position) - 2);
 			crimeDetection += col.gameObject.GetComponentInParent<FishScript>().crimeLevel / Vector2.Distance(this.gameObject.transform.position, 
 				col.GetComponentInParent<Transform>().position);
 		}
