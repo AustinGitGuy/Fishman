@@ -78,16 +78,16 @@ public class GuardScript : MonoBehaviour {
 		if(crimeDetection <= 0){
 			crimeDetection = 0;
 		}
-		if(crimeDetection >= detectionAmount){
+		if(!seePlayer){
+			alertMode = false;
+		}
+		if(crimeDetection >= detectionAmount && seePlayer){
 			yield return new WaitForSeconds(.5f);
 			if(!dead){
 				alertMode = true;
 				Managers.NPCManager.Instance.EnableHunt();
 				Managers.NPCManager.Instance.timer = 0f;
 			}
-		}
-		else if(!seePlayer){
-			alertMode = false;
 		}
 		if(seePlayer && crimeDetection >= 1){
 			yield return new WaitForSeconds(.5f);
@@ -174,8 +174,8 @@ public class GuardScript : MonoBehaviour {
 			playerRad = true;
 			noiseDetection += col.gameObject.GetComponentInParent<FishScript>().noiseLevel / (Vector2.Distance(this.gameObject.transform.position, 
 				col.GetComponentInParent<Transform>().position) - 2);
-			crimeDetection += col.gameObject.GetComponentInParent<FishScript>().crimeLevel / Vector2.Distance(this.gameObject.transform.position, 
-				col.GetComponentInParent<Transform>().position);
+			crimeDetection += col.gameObject.GetComponentInParent<FishScript>().crimeLevel / (Vector2.Distance(this.gameObject.transform.position, 
+				col.GetComponentInParent<Transform>().position) / 4);
 		}
 		if(col.tag == "Target" || col.tag == "Guard"){
 			if(col.GetComponent<GuardScript>().dead){
@@ -213,7 +213,7 @@ public class GuardScript : MonoBehaviour {
             GetComponent<Navigator>().StopAllMovements();
         }
 		Debug.Log(gameObject.name + " died.");
-		GetComponent<SpriteRenderer>().color = new Color(0, .6f, 0);
+		GetComponent<SpriteRenderer>().color = new Color(.6f, .6f, .6f);
 		GetComponent<PolygonCollider2D>().isTrigger = true;
 		dead = true;
 		//TODO: Do something here

@@ -17,8 +17,16 @@ public class PlayerFire : MonoBehaviour {
 
 	void Fire(){
 		if(Input.GetMouseButtonDown(1)){
+			Vector3 ironSightsPos = ironSights.transform.position;
+			RaycastHit2D[] sight = Physics2D.RaycastAll(ironSightsPos, transform.up, 1);
+			Debug.DrawRay(ironSightsPos, transform.right, Color.red);
+			foreach(RaycastHit2D hit in sight){
+				if(hit.transform.gameObject.tag == "Blockable"){
+					return;
+				}
+			}
 			this.gameObject.GetComponent<FishScript>().crimeLevel += 20f;
-			Instantiate(objFire, ironSights.transform.position, new Quaternion(0, 0, 0, 0));
+			Instantiate(objFire, ironSightsPos, new Quaternion(0, 0, 0, 0));
 		}
 	}
 }
