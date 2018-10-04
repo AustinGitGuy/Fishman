@@ -20,7 +20,6 @@ public class Navigator : MonoBehaviour
 		if(!isMoving && !GetComponent<GuardScript>().dead){
 			StartCoroutine(MoveCharacter_Patrol(MoveType.Run, patrolPoints));
 		}
-		rb.angularVelocity = 0f;
 	}
 
 	public IEnumerator MoveCharacter_Patrol(MoveType movetype, List<ManualNavPoint> manualNavPoints){
