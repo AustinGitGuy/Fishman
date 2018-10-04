@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4025412066369474}
   - component: {fileID: 58805354875294876}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: NoiseSend
   m_TagString: Noise
   m_Icon: {fileID: 0}
@@ -35,7 +35,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4150983773112236}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: IronSights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,8 @@ GameObject:
   - component: {fileID: 50063742888790594}
   - component: {fileID: 114934930957734046}
   - component: {fileID: 60447001541603978}
-  m_Layer: 0
+  - component: {fileID: 114470997518000686}
+  m_Layer: 11
   m_Name: Fish
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -82,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1287938178476510}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.75, y: 0, z: 0}
+  m_LocalPosition: {x: 2.43, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4643186245743096}
@@ -95,7 +96,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1339557929387258}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.6, y: 0, z: 0}
+  m_LocalPosition: {x: -6.87, y: 0.3, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4150983773112236}
@@ -217,6 +218,17 @@ PolygonCollider2D:
       - {x: 0.90999997, y: -0.96999997}
       - {x: 1.15, y: -0.84}
       - {x: 1.35, y: -0.71999997}
+--- !u!114 &114470997518000686
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1339557929387258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ab05c0480930ac40b5b2b4c8a4a1372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114587485942253114
 MonoBehaviour:
   m_ObjectHideFlags: 1

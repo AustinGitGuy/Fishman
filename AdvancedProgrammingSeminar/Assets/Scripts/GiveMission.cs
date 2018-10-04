@@ -13,22 +13,31 @@ public class GiveMission : MonoBehaviour {
 	public int id;
 	public int completionBonus;
 	bool viewed;
+	[SerializeField]
+	int moneyVal;
+	bool isOpen = true;
 
 	void Start(){
 		player = Managers.PlayerManager.Instance.GetPlayer();
 		cam = GameObject.FindGameObjectWithTag("MainCamera");
 		canvas = GameObject.Find("Canvas");
 		exclamation = transform.Find("Exclamation").gameObject;
+		if(moneyVal > 0){
+			exclamation.SetActive(false);
+			isOpen = false;	
+		}
 	}
 
 	void Update(){
 		StartCoroutine(GetInput());
+		if(moneyVal <= Managers.PlayerManager.Instance.totalCollectedCoins){
+			isOpen = true;
+		}
 	}
 
 	IEnumerator GetInput(){
-		if(Input.GetKeyDown(KeyCode.E) && !Managers.QuestManager.Instance.questsAccepted[id]){
+		if(Input.GetKeyDown(KeyCode.E) && !Managers.QuestManager.Instance.questsAccepted[id] && isOpen){
 			if(Vector3.Distance(player.transform.position, this.transform.position) <= 3){
-                Debug.Log("Test");
 				viewed = true;
 				if(!target.GetComponent<GuardScript>().dead){
 					Managers.QuestManager.Instance.check.SetActive(true);

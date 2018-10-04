@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Navigator : MonoBehaviour 
-{
-	Rigidbody2D rb;
+public class Navigator : MonoBehaviour {
 	//Navigation script copied and modified from Game Tech II class.
 	public List<ManualNavPoint> patrolPoints;
 	public enum MoveType {Walk, Run}
@@ -14,7 +12,6 @@ public class Navigator : MonoBehaviour
 	public bool isMoving = false;
 
 	void Start(){
-		rb = GetComponent<Rigidbody2D>();
 	}	
 	void Update(){
 		if(!isMoving && !GetComponent<GuardScript>().dead){
