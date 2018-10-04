@@ -16,7 +16,6 @@ public class GuardScript : MonoBehaviour {
 	public float noiseDetection;
 	public float crimeDetection;
 	public bool alertMode;
-	Rigidbody2D rb;
 	public bool dead;
 	public bool seePlayer;
 	bool firing;
@@ -28,7 +27,6 @@ public class GuardScript : MonoBehaviour {
 		if(!citizen){
 			ironSights = transform.Find("IronSights").gameObject;
 		}
-		rb = GetComponent<Rigidbody2D>();
 		player = Managers.PlayerManager.Instance.GetPlayer();
 		spawnPos = this.transform.position;
 	}
@@ -48,8 +46,6 @@ public class GuardScript : MonoBehaviour {
 					pickedUp = true;
 					transform.SetParent(player.transform);
 					player.GetComponent<FishScript>().carryingBody = true;
-					rb.velocity = Vector2.zero;
-					rb.simulated = false;
 				}
 			}
 			else {
@@ -57,8 +53,6 @@ public class GuardScript : MonoBehaviour {
 					pickedUp = false;
 					transform.SetParent(null);
 					player.GetComponent<FishScript>().carryingBody = false;
-					rb.velocity = Vector2.zero;
-					rb.angularVelocity = 0f;
 				}
 			}
 		}
@@ -220,9 +214,6 @@ public class GuardScript : MonoBehaviour {
         }
 		Debug.Log(gameObject.name + " died.");
 		GetComponent<SpriteRenderer>().color = new Color(0, .6f, 0);
-		rb.simulated = false;
-		rb.velocity = Vector2.zero;
-		rb.angularVelocity = 0f;
 		GetComponent<PolygonCollider2D>().isTrigger = true;
 		dead = true;
 		//TODO: Do something here

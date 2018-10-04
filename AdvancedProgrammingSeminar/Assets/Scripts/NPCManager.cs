@@ -38,7 +38,6 @@ namespace Managers{
 
 		public void EnableHunt(){
 			huntPlayer = true;
-			Debug.Log("Hunting Player");
 			alerted.gameObject.SetActive(true);
 		}
 

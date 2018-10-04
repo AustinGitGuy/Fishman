@@ -11,7 +11,11 @@ public class LaunchBullet : MonoBehaviour {
 	void Start(){
 		player = Managers.PlayerManager.Instance.GetPlayer();
 		rb = GetComponent<Rigidbody2D>();
-		rb.AddForce((Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized * forceAmount);
+		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		Quaternion rot = Quaternion.LookRotation(transform.position - mousePos, Vector3.forward);
+		transform.rotation = rot;
+		transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
+		rb.AddForce(transform.up * forceAmount);
 		Destroy(this.gameObject, 10f);
         StartCoroutine(FallBack());
 	}
