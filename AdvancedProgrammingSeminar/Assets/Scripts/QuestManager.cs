@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Managers {
 	public class QuestManager : Singleton<QuestManager> {
@@ -20,6 +21,12 @@ namespace Managers {
 			btn2.onClick.AddListener(delegate {TaskWithParameters("X"); });
 			check.gameObject.SetActive(false);
 			x.gameObject.SetActive(false);
+		}
+
+		void Update(){
+			if(questsCompleted[5]){
+				SceneManager.LoadScene("EndScene");
+			}
 		}
 
 		void TaskWithParameters(string type){

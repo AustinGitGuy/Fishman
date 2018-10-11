@@ -10,9 +10,11 @@ namespace Managers{
 		public bool searchMode;
 		public float timer;
 		Text alerted;
-		//Disguise variable here
+		public bool seePlayer;
+		GuardScript[] people;
 
 		void Start(){
+			people = (GuardScript[]) GameObject.FindObjectsOfType(typeof(GuardScript));
 			alerted = GameObject.Find("AlertedText").GetComponent<Text>();
 			alerted.gameObject.SetActive(false);
 		}
@@ -26,6 +28,13 @@ namespace Managers{
 			}
 			if(searchMode){
 				
+			}
+			for(int i = 0; i < people.Length; i++){
+				if(people[i].seePlayer){
+					seePlayer = true;
+					break;
+				}
+				seePlayer = false;
 			}
 		}
 		
