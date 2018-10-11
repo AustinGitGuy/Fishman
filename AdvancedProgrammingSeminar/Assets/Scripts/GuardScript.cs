@@ -9,7 +9,7 @@ public class GuardScript : MonoBehaviour {
 	GameObject ironSights;
 	GameObject player;
 	bool playerRad;
-	float sightLine = 20f;
+	float sightLine = 15f;
 	float decayRate = .2f;
 	float detectionAmount = 7f;
 	float detAngle = 50f;
@@ -133,9 +133,6 @@ public class GuardScript : MonoBehaviour {
 	void CheckSight(){
 		Vector3 dir = player.transform.position - transform.position;
 		float playerDist = Vector2.Distance(player.transform.position, transform.position);
-		if(transform.eulerAngles.z >= -45 && transform.eulerAngles.z <= 45){
-			//angle = Vector3.Angle(transform.right, dir);
-		}
 		angle = Vector3.Angle(transform.right, dir);
 		if(playerDist <= sightLine && angle <= detAngle){
 			RaycastHit2D[] sight = Physics2D.RaycastAll(transform.position, dir, playerDist);
