@@ -133,8 +133,11 @@ public class GuardScript : MonoBehaviour {
 	void CheckSight(){
 		Vector3 dir = player.transform.position - transform.position;
 		float playerDist = Vector2.Distance(player.transform.position, transform.position);
-		angle = Vector2.Angle(dir, transform.position);
-		if(playerDist <= sightLine && (Mathf.Abs((angle + transform.eulerAngles.z) - 180) <= detAngle)){
+		if(transform.eulerAngles.z >= -45 && transform.eulerAngles.z <= 45){
+			//angle = Vector3.Angle(transform.right, dir);
+		}
+		angle = Vector3.Angle(transform.right, dir);
+		if(playerDist <= sightLine && angle <= detAngle){
 			RaycastHit2D[] sight = Physics2D.RaycastAll(transform.position, dir, playerDist);
 			foreach(RaycastHit2D hit in sight){
 				if(hit.transform.gameObject.tag == "Blockable" || hit.transform.gameObject.tag == "Hiding"){
