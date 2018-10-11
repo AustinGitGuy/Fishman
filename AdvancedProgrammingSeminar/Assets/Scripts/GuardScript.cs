@@ -12,7 +12,7 @@ public class GuardScript : MonoBehaviour {
 	float sightLine = 20f;
 	float decayRate = .2f;
 	float detectionAmount = 7f;
-	float detAngle = 40f;
+	float detAngle = 50f;
 	public float noiseDetection;
 	public float crimeDetection;
 	public bool alertMode;
@@ -23,6 +23,7 @@ public class GuardScript : MonoBehaviour {
 	public bool citizen;
 	int health = 2;
 
+	public float angle;
 	void Start(){
 		if(!citizen){
 			ironSights = transform.Find("IronSights").gameObject;
@@ -133,7 +134,7 @@ public class GuardScript : MonoBehaviour {
 		Vector2 playerDir = player.transform.position - transform.position;
 		float playerDist = Vector2.Distance(player.transform.position, transform.position);
 		Vector3 dir = player.transform.position - transform.position;
-		float angle = Vector2.Angle(dir, transform.position);
+		angle = Vector2.Angle(dir, transform.position);
 		if(playerDist <= sightLine && (Mathf.Abs((angle + transform.eulerAngles.z) - 180) <= detAngle)){
 			RaycastHit2D[] sight = Physics2D.RaycastAll(transform.position, playerDir, playerDist);
 			foreach(RaycastHit2D hit in sight){
@@ -142,8 +143,10 @@ public class GuardScript : MonoBehaviour {
 					return;
 				}
 			}
-			seePlayer = true;
-			Debug.DrawRay(transform.position, playerDir, Color.red);
+			if(!dead){
+				seePlayer = true;
+				Debug.DrawRay(transform.position, playerDir, Color.red);
+			}
 		}
 		else {
 			seePlayer = false;
@@ -172,10 +175,8 @@ public class GuardScript : MonoBehaviour {
 	void OnTriggerStay2D(Collider2D col){
 		if(col.tag == "Noise"){
 			playerRad = true;
-			noiseDetection += col.gameObject.GetComponentInParent<FishScript>().noiseLevel / (Vector2.Distance(this.gameObject.transform.position, 
-				col.GetComponentInParent<Transform>().position) - 2);
-			crimeDetection += col.gameObject.GetComponentInParent<FishScript>().crimeLevel / (Vector2.Distance(this.gameObject.transform.position, 
-				col.GetComponentInParent<Transform>().position) / 4);
+			noiseDetection += col.gameObject.GetComponentInParent<FishScript>().noiseLevel;
+			crimeDetection += col.gameObject.GetComponentInParent<FishScript>().crimeLevel;
 		}
 		if(col.tag == "Target" || col.tag == "Guard"){
 			if(col.GetComponent<GuardScript>().dead){
