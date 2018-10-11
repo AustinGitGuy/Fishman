@@ -53,6 +53,7 @@ public class GiveMission : MonoBehaviour {
 					}
 					if(Managers.QuestManager.Instance.checkPress){
 						Managers.QuestManager.Instance.questsAccepted[id] = true;
+						GetComponent<PolygonCollider2D>().isTrigger = true;
 						exclamation.GetComponent<SpriteRenderer>().sprite = question;
 					}
 					Managers.QuestManager.Instance.checkPress = false;

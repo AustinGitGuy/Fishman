@@ -131,12 +131,11 @@ public class GuardScript : MonoBehaviour {
 	}
 
 	void CheckSight(){
-		Vector2 playerDir = player.transform.position - transform.position;
-		float playerDist = Vector2.Distance(player.transform.position, transform.position);
 		Vector3 dir = player.transform.position - transform.position;
+		float playerDist = Vector2.Distance(player.transform.position, transform.position);
 		angle = Vector2.Angle(dir, transform.position);
 		if(playerDist <= sightLine && (Mathf.Abs((angle + transform.eulerAngles.z) - 180) <= detAngle)){
-			RaycastHit2D[] sight = Physics2D.RaycastAll(transform.position, playerDir, playerDist);
+			RaycastHit2D[] sight = Physics2D.RaycastAll(transform.position, dir, playerDist);
 			foreach(RaycastHit2D hit in sight){
 				if(hit.transform.gameObject.tag == "Blockable" || hit.transform.gameObject.tag == "Hiding"){
 					seePlayer = false;
@@ -145,7 +144,7 @@ public class GuardScript : MonoBehaviour {
 			}
 			if(!dead){
 				seePlayer = true;
-				Debug.DrawRay(transform.position, playerDir, Color.red);
+				Debug.DrawRay(transform.position, dir, Color.red);
 			}
 		}
 		else {
