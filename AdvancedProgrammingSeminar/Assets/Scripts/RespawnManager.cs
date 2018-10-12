@@ -30,7 +30,8 @@ namespace Managers {
                             gI.crimeDetection = 0f;
                             targets[c].GetComponent<SpriteRenderer>().color = Color.white;
 							targets[c].transform.position = gI.spawnPos;
-							gI.dead = false;
+							//gI.dead = false;
+							gI.health = gI.maxHealth;
 						}
 					}
 				}
@@ -42,7 +43,8 @@ namespace Managers {
                 gI.crimeDetection = 0f;
                 guards[i].GetComponent<SpriteRenderer>().color = Color.white;
 				guards[i].transform.position = gI.spawnPos;
-				gI.dead = false;
+				//gI.dead = false;
+				gI.health = gI.maxHealth;
 			}
             Managers.NPCManager.Instance.DisableHunt();
         }

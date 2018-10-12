@@ -31,6 +31,7 @@ public class GiveMission : MonoBehaviour {
 	void Update(){
 		StartCoroutine(GetInput());
 		if(moneyVal <= Managers.PlayerManager.Instance.totalCollectedCoins){
+			exclamation.SetActive(true);
 			isOpen = true;
 		}
 	}
@@ -67,7 +68,7 @@ public class GiveMission : MonoBehaviour {
 				}
 			}
 		}
-		if(Input.GetKeyDown(KeyCode.E) && viewed){
+		if(Input.GetKeyDown(KeyCode.E) && viewed && !Managers.QuestManager.Instance.questsCompleted[id]){
 			if(Vector3.Distance(player.transform.position, this.transform.position) <= 3){
 				if(target.GetComponent<GuardScript>().dead){
 					Managers.PlayerManager.Instance.CoinCollected(completionBonus);
