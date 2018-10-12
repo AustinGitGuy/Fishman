@@ -21,7 +21,8 @@ public class GuardScript : MonoBehaviour {
 	bool firing;
 	bool pickedUp;
 	public bool citizen;
-	int health = 2;
+	public int health = 2;
+	public int maxHealth = 2;
 
 	public float angle;
 	void Start(){

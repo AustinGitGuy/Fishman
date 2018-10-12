@@ -8,6 +8,8 @@ public class PowerSwitch : MonoBehaviour {
     GameObject player;
     public int lineNum;
     public bool switchable;
+    [SerializeField]
+    Sprite onSprite;
 
 	void Start(){
 		player = Managers.PlayerManager.Instance.GetPlayer();
@@ -27,11 +29,15 @@ public class PowerSwitch : MonoBehaviour {
                     attachTo.GetComponent<WireScript>().line2 = !attachTo.GetComponent<WireScript>().line2;
                 }
             }
-            if(lineNum == 0){
-                attachTo.GetComponent<WireScript>().line1 = true;
-            }
-            if(lineNum == 1){
-                attachTo.GetComponent<WireScript>().line2 = true;
+            else {
+                if(lineNum == 0){
+                    GetComponent<SpriteRenderer>().sprite = onSprite;
+                    attachTo.GetComponent<WireScript>().line1 = true;
+                }
+                if(lineNum == 1){
+                    GetComponent<SpriteRenderer>().sprite = onSprite;
+                    attachTo.GetComponent<WireScript>().line2 = true;
+                }
             }
         }
     }
