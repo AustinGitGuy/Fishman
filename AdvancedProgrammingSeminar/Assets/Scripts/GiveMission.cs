@@ -16,6 +16,7 @@ public class GiveMission : MonoBehaviour {
 	[SerializeField]
 	int moneyVal;
 	bool isOpen = true;
+	GuardScript targetGuard;
 
 	void Start(){
 		player = Managers.PlayerManager.Instance.GetPlayer();
@@ -26,13 +27,16 @@ public class GiveMission : MonoBehaviour {
 			exclamation.SetActive(false);
 			isOpen = false;	
 		}
+		targetGuard = target.GetComponent<GuardScript>();
 	}
 
 	void Update(){
 		StartCoroutine(GetInput());
 		if(moneyVal <= Managers.PlayerManager.Instance.totalCollectedCoins){
-			exclamation.SetActive(true);
 			isOpen = true;
+			if(!Managers.QuestManager.Instance.questsCompleted[id]){
+				exclamation.SetActive(false);
+			}
 		}
 	}
 
@@ -40,7 +44,7 @@ public class GiveMission : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.E) && !Managers.QuestManager.Instance.questsAccepted[id] && isOpen){
 			if(Vector3.Distance(player.transform.position, this.transform.position) <= 3){
 				viewed = true;
-				if(!target.GetComponent<GuardScript>().dead){
+				if(!targetGuard.dead){
 					Managers.QuestManager.Instance.check.SetActive(true);
 					Managers.QuestManager.Instance.x.SetActive(true);
 					Managers.PlayerManager.Instance.cutscene = true;
@@ -70,12 +74,34 @@ public class GiveMission : MonoBehaviour {
 		}
 		if(Input.GetKeyDown(KeyCode.E) && viewed && !Managers.QuestManager.Instance.questsCompleted[id]){
 			if(Vector3.Distance(player.transform.position, this.transform.position) <= 3){
-				if(target.GetComponent<GuardScript>().dead){
+				if(targetGuard.dead){
 					Managers.PlayerManager.Instance.CoinCollected(completionBonus);
 					Managers.QuestManager.Instance.questsCompleted[id] = true;
 					exclamation.SetActive(false);
 				}
+				else if(Managers.QuestManager.Instance.questsAccepted[id] && viewed){
+					StartCoroutine(Cutscene());
+				}
 			}
 		}
+	}
+
+	IEnumerator Cutscene(){
+		Managers.PlayerManager.Instance.cutscene = true;
+		Managers.QuestManager.Instance.check.SetActive(true);
+		canvas.SetActive(false);
+		GameObject view = target.transform.Find("View").gameObject;
+		Vector3 camPos = cam.transform.position;
+		cam.transform.position = new Vector3(view.transform.position.x, view.transform.position.y, -5);
+		target.GetComponent<TargetScript>().text.SetActive(true);
+		while(!Managers.QuestManager.Instance.checkPress && !Managers.QuestManager.Instance.xPress){
+			yield return null;
+		}
+		Managers.QuestManager.Instance.checkPress = false;
+		cam.transform.position = camPos;
+		canvas.SetActive(true);
+		target.GetComponent<TargetScript>().text.SetActive(false);
+		Managers.QuestManager.Instance.check.SetActive(false);
+		Managers.PlayerManager.Instance.cutscene = false;
 	}
 }
