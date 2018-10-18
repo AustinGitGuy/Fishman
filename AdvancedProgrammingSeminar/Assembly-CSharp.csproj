@@ -53,7 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Journal.cs" />
+     <Compile Include="Assets\JournalRender.cs" />
      <Compile Include="Assets\Scripts\Attacks.cs" />
      <Compile Include="Assets\Scripts\ChandelierFall.cs" />
      <Compile Include="Assets\Scripts\Coin.cs" />
@@ -83,6 +83,7 @@
      <Compile Include="Assets\Scripts\ToTitle.cs" />
      <Compile Include="Assets\Scripts\WeaponDisplay.cs" />
      <Compile Include="Assets\Scripts\WireScript.cs" />
+     <Compile Include="Assets\ViewQuest.cs" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>D:/Advanced Programming Seminar/AdvancedProgrammingSeminar/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>
