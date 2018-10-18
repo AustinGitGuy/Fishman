@@ -13,8 +13,10 @@ namespace Managers {
 		public GameObject x;
 		public bool checkPress;
 		public bool xPress;
+		JournalRender journal;
 
 		void Start(){
+			journal = GameObject.Find("Canvas").GetComponent<JournalRender>();
 			Button btn1 = check.GetComponent<Button>();
 			Button btn2 = x.GetComponent<Button>();
 			btn1.onClick.AddListener(delegate {TaskWithParameters("Check"); });
@@ -26,6 +28,13 @@ namespace Managers {
 		void Update(){
 			if(questsCompleted[5]){
 				SceneManager.LoadScene("EndScene");
+			}
+			for(int i = 0; i < questsCompleted.Count; i++){
+				if(questsAccepted[i]){
+					if(!questsCompleted[i]){
+						journal.GetEmptySlot(i);
+					}
+				}
 			}
 		}
 
