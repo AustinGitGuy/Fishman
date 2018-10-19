@@ -8,7 +8,7 @@ public class JournalRender : MonoBehaviour {
 	[SerializeField]
 	GiveMission[] clients;
 	GameObject journal;
-	bool journalActive;
+	public bool journalActive;
 
 	void Start(){
 		for(int i = 0; i < clients.Length; i++){
@@ -38,5 +38,9 @@ public class JournalRender : MonoBehaviour {
 			journalActive = !journalActive;
 			journal.SetActive(journalActive);
 		}
+	}
+
+	void HideJournal(){
+		
 	}
 }

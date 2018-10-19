@@ -9,6 +9,7 @@ namespace Managers {
 
 		public List<bool> questsAccepted;
 		public List<bool> questsCompleted;
+		public GiveMission[] clients;
 		public GameObject check;
 		public GameObject x;
 		public bool checkPress;
@@ -16,6 +17,10 @@ namespace Managers {
 		JournalRender journal;
 
 		void Start(){
+			clients = new GiveMission[questsCompleted.Count];
+			for(int i = 0; i < questsCompleted.Count; i++){
+				clients[i] = GameObject.Find("Client" + i).GetComponent<GiveMission>();
+			}
 			journal = GameObject.Find("Canvas").GetComponent<JournalRender>();
 			Button btn1 = check.GetComponent<Button>();
 			Button btn2 = x.GetComponent<Button>();

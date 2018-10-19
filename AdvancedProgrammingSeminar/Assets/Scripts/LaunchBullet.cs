@@ -7,8 +7,11 @@ public class LaunchBullet : MonoBehaviour {
 	Rigidbody2D rb;
 	float forceAmount = 750f;
 	GameObject player;
+	PlayThenDie sys;
 
 	void Start(){
+		sys = transform.Find("Splatter").GetComponent<PlayThenDie>();
+		sys.gameObject.SetActive(false);
 		player = Managers.PlayerManager.Instance.GetPlayer();
 		rb = GetComponent<Rigidbody2D>();
 		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -16,7 +19,6 @@ public class LaunchBullet : MonoBehaviour {
 		transform.rotation = rot;
 		transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
 		rb.AddForce(transform.up * forceAmount);
-		Destroy(this.gameObject, 10f);
         StartCoroutine(FallBack());
 	}
 
@@ -26,12 +28,10 @@ public class LaunchBullet : MonoBehaviour {
     }
 
 	void OnCollisionEnter2D(Collision2D col){
-		if(col.gameObject.tag == "Target" || col.gameObject.tag == "Client" || col.gameObject.tag == "Guard" || col.gameObject.tag == "Civilian"){
-            player.GetComponent<FishScript>().crimeLevel -= 20f;
-            Destroy(this.gameObject);
-		} 
-		else {
-			Destroy(this.gameObject, 2f);
-		}
+		transform.DetachChildren();
+		sys.gameObject.SetActive(true);
+		sys.Play();
+		player.GetComponent<FishScript>().crimeLevel -= 20f;
+		Destroy(this.gameObject);
 	}
 }

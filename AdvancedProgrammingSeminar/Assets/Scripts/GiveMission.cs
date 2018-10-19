@@ -6,7 +6,6 @@ public class GiveMission : MonoBehaviour {
 
 	GameObject player;
 	GameObject cam;
-	GameObject canvas;
 	GameObject exclamation;
 	public GameObject target;
 	public Sprite question;
@@ -17,12 +16,14 @@ public class GiveMission : MonoBehaviour {
 	int moneyVal;
 	bool isOpen = true;
 	GuardScript targetGuard;
+	JournalRender journal;
+	CanvasGroup canvas;
 
 	void Start(){
 		player = Managers.PlayerManager.Instance.GetPlayer();
 		cam = GameObject.FindGameObjectWithTag("MainCamera");
-		canvas = GameObject.Find("Canvas");
 		exclamation = transform.Find("Exclamation").gameObject;
+		canvas = GameObject.Find("Canvas").GetComponent<CanvasGroup>();
 		if(moneyVal > 0){
 			exclamation.SetActive(false);
 			isOpen = false;	
@@ -48,7 +49,8 @@ public class GiveMission : MonoBehaviour {
 					Managers.QuestManager.Instance.check.SetActive(true);
 					Managers.QuestManager.Instance.x.SetActive(true);
 					Managers.PlayerManager.Instance.cutscene = true;
-					canvas.SetActive(false);
+					canvas.alpha = 0f;
+					canvas.blocksRaycasts = false;
 					GameObject view = target.transform.Find("View").gameObject;
 					Vector3 camPos = cam.transform.position;
 					cam.transform.position = new Vector3(view.transform.position.x, view.transform.position.y, -5);
@@ -64,7 +66,8 @@ public class GiveMission : MonoBehaviour {
 					Managers.QuestManager.Instance.checkPress = false;
 					Managers.QuestManager.Instance.xPress = false;
 					cam.transform.position = camPos;
-					canvas.SetActive(true);
+					canvas.alpha = 1f;
+					canvas.blocksRaycasts = true;
 					target.GetComponent<TargetScript>().text.SetActive(false);
 					Managers.QuestManager.Instance.check.SetActive(false);
 					Managers.QuestManager.Instance.x.SetActive(false);
@@ -86,20 +89,22 @@ public class GiveMission : MonoBehaviour {
 		}
 	}
 
-	IEnumerator Cutscene(){
+	public IEnumerator Cutscene(){
 		Managers.PlayerManager.Instance.cutscene = true;
 		Managers.QuestManager.Instance.check.SetActive(true);
-		canvas.SetActive(false);
+		canvas.alpha = 0f;
+		canvas.blocksRaycasts = false;
 		GameObject view = target.transform.Find("View").gameObject;
 		Vector3 camPos = cam.transform.position;
 		cam.transform.position = new Vector3(view.transform.position.x, view.transform.position.y, -5);
 		target.GetComponent<TargetScript>().text.SetActive(true);
-		while(!Managers.QuestManager.Instance.checkPress && !Managers.QuestManager.Instance.xPress){
+		while(!Managers.QuestManager.Instance.checkPress){
 			yield return null;
 		}
 		Managers.QuestManager.Instance.checkPress = false;
 		cam.transform.position = camPos;
-		canvas.SetActive(true);
+		canvas.alpha = 1f;
+		canvas.blocksRaycasts = true;
 		target.GetComponent<TargetScript>().text.SetActive(false);
 		Managers.QuestManager.Instance.check.SetActive(false);
 		Managers.PlayerManager.Instance.cutscene = false;
