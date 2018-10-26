@@ -55,7 +55,6 @@ GameObject:
   - component: {fileID: 50063742888790594}
   - component: {fileID: 114934930957734046}
   - component: {fileID: 60447001541603978}
-  - component: {fileID: 114470997518000686}
   m_Layer: 11
   m_Name: Fish
   m_TagString: Player
@@ -218,17 +217,6 @@ PolygonCollider2D:
       - {x: 0.90999997, y: -0.96999997}
       - {x: 1.15, y: -0.84}
       - {x: 1.35, y: -0.71999997}
---- !u!114 &114470997518000686
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1339557929387258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ab05c0480930ac40b5b2b4c8a4a1372, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114587485942253114
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -254,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95349ea7bca284742a9a5815d7725267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objFire: {fileID: 1590690840557010, guid: ebea204eda9a7ab4097e34ad2ec76b5d, type: 2}
+  objFire: {fileID: 1014774972710056, guid: da364c719c60cc547a74d12c63a49200, type: 2}
 --- !u!212 &212954155615797428
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PostProcessing;
 
 namespace Managers{
 	public class PlayerManager : Singleton<PlayerManager> {
@@ -21,6 +22,8 @@ namespace Managers{
 		GameObject blueCard;
 		GameObject greenCard;
 		GameObject playerObject;
+
+        public PostProcessingProfile ppProfile;
 
 		void Start(){
 			//Application.targetFrameRate = 60;
@@ -53,6 +56,11 @@ namespace Managers{
 			if(health <= 0){
 				Managers.RespawnManager.Instance.Respawn();
 			}
+            else{
+                ChromaticAberrationModel.Settings chromSettings = ppProfile.chromaticAberration.settings;
+                chromSettings.intensity = 5 / health - 1;
+                ppProfile.chromaticAberration.settings = chromSettings;
+            }
 			health += .005f;
 			if(health > 5){
 				health = 5;

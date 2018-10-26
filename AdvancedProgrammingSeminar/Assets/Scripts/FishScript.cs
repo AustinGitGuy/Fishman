@@ -47,10 +47,10 @@ public class FishScript : MonoBehaviour {
 				noiseLevel = .75f;
 			}
 		}
-		float AngleRad = Mathf.Atan2(Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y, Camera.main.ScreenToWorldPoint(Input.mousePosition).x - 
-		transform.position.x);
-		float AngleDeg = (180 / Mathf.PI) * AngleRad;
-		this.transform.rotation = Quaternion.Euler(0, 0, AngleDeg);
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Quaternion rot = Quaternion.LookRotation(transform.position - mousePos, Vector3.forward);
+        transform.rotation = rot;
+        transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z + 90f);
     }
 
 	void OnTriggerStay2D(Collider2D col){

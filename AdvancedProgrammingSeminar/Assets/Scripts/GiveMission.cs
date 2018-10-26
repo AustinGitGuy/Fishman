@@ -26,7 +26,7 @@ public class GiveMission : MonoBehaviour {
 		canvas = GameObject.Find("Canvas").GetComponent<CanvasGroup>();
 		if(moneyVal > 0){
 			exclamation.SetActive(false);
-			isOpen = false;	
+			isOpen = false;
 		}
 		targetGuard = target.GetComponent<GuardScript>();
 	}
@@ -36,7 +36,7 @@ public class GiveMission : MonoBehaviour {
 		if(moneyVal <= Managers.PlayerManager.Instance.totalCollectedCoins){
 			isOpen = true;
 			if(!Managers.QuestManager.Instance.questsCompleted[id]){
-				exclamation.SetActive(false);
+				exclamation.SetActive(true);
 			}
 		}
 	}
