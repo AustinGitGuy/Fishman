@@ -6,6 +6,7 @@ public class InspectObject : MonoBehaviour {
 
 	GameObject player;
 	FadingText text;
+	bool inspecting;
 
 	void Start(){
 		player = Managers.PlayerManager.Instance.GetPlayer();
@@ -14,10 +15,14 @@ public class InspectObject : MonoBehaviour {
 	}
 	
 	void Update(){
-		if(Vector2.Distance(player.transform.position, this.transform.position) <= 3 && Input.GetKeyDown(KeyCode.E)){
-			text.FadeIn();
+		if(Vector2.Distance(player.transform.position, this.transform.position) <= 3){
+			if(Input.GetKeyDown(KeyCode.E) || inspecting){
+				inspecting = true;
+				text.FadeIn();
+			}
 		}
 		else {
+			inspecting = false;
 			text.FadeOut();
 		}
 	}
