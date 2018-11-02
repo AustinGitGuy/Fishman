@@ -36,7 +36,6 @@ public class DoorOpen : MonoBehaviour {
                             }
                             door.position = new Vector2(door.position.x + 2, door.position.y);
                         }
-
                         Managers.PlayerManager.Instance.redNum--;
                         doorOpen = true;
                         sys.gameObject.SetActive(true);

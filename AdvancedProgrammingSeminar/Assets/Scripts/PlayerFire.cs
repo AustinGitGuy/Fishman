@@ -33,6 +33,8 @@ public class PlayerFire : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col){
 		if(col.name == "Gun" && Vector2.Distance(col.transform.position, this.transform.position) <= 2){
+			col.transform.Find("Particles").GetComponent<PlayThenDie>().Play();
+			col.transform.DetachChildren();
 			hasGun = true;
 			Destroy(col.gameObject);
 		}
