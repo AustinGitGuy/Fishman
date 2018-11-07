@@ -23,6 +23,8 @@ public class GuardScript : MonoBehaviour {
 	public bool citizen;
 	public int health = 2;
 	public int maxHealth = 2;
+	[SerializeField]
+	bool shootOnSight;
 
 	public float angle;
 	void Start(){
@@ -119,6 +121,9 @@ public class GuardScript : MonoBehaviour {
 		}
 		if(alertMode && !Managers.NPCManager.Instance.getHunt()){
 			alertMode = false;
+		}
+		if(seePlayer && shootOnSight){
+			alertMode = true;
 		}
 	}
 

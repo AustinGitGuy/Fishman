@@ -3,14 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerFire : MonoBehaviour {
-
-	GameObject ironSights;
 	public GameObject objFire;
 	public bool hasGun;
-
-	void Start(){
-		ironSights = transform.Find("IronSights").gameObject;
-	}
 
 	void Update(){
 		Fire();
@@ -18,7 +12,7 @@ public class PlayerFire : MonoBehaviour {
 
 	void Fire(){
 		if(Input.GetMouseButtonDown(1) && hasGun){
-			Vector3 ironSightsPos = ironSights.transform.position;
+			Vector3 ironSightsPos = transform.position;
 			RaycastHit2D[] sight = Physics2D.RaycastAll(ironSightsPos, transform.up, 1);
 			Debug.DrawRay(ironSightsPos, transform.right, Color.red);
 			foreach(RaycastHit2D hit in sight){
@@ -36,7 +30,7 @@ public class PlayerFire : MonoBehaviour {
 			col.transform.Find("Particles").GetComponent<PlayThenDie>().Play();
 			col.transform.DetachChildren();
 			hasGun = true;
-			Destroy(col.gameObject);
+			col.gameObject.SetActive(false);
 		}
 	}
 }
