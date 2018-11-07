@@ -51,6 +51,9 @@ public class FishScript : MonoBehaviour {
         Quaternion rot = Quaternion.LookRotation(transform.position - mousePos, Vector3.forward);
         transform.rotation = rot;
         transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z + 90f);
+		if(transform.eulerAngles.z > 90f && transform.eulerAngles.z < 270f){
+			transform.eulerAngles = new Vector3(0, 180, -transform.eulerAngles.z + 180f);
+		}
     }
 
 	void OnTriggerStay2D(Collider2D col){

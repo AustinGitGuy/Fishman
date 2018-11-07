@@ -242,7 +242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95349ea7bca284742a9a5815d7725267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objFire: {fileID: 1014774972710056, guid: da364c719c60cc547a74d12c63a49200, type: 2}
+  objFire: {fileID: 1158507764133316, guid: da364c719c60cc547a74d12c63a49200, type: 2}
+  hasGun: 0
 --- !u!212 &212954155615797428
 SpriteRenderer:
   m_ObjectHideFlags: 1
