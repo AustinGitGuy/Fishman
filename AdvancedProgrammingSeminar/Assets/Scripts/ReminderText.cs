@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class ReminderText : MonoBehaviour {
 
+    [SerializeField]
     FadingText text;
     GameObject player;
 
 	void Start(){
         player = Managers.PlayerManager.Instance.GetPlayer();
-        text = transform.Find("ReminderText").GetComponent<FadingText>();
+        if(!text){
+            text = transform.Find("ReminderText").GetComponent<FadingText>();
+        }
         text.TurnOff();
     }
 

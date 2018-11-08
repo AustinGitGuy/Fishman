@@ -37,9 +37,14 @@ namespace Managers{
 				seePlayer = false;
 			}
 		}
+
+		public void SendNoise(float noiseLevel, float crimeLevel){
+			for(int i = 0; i < people.Length; i++){
+				people[i].AddNoise(noiseLevel, crimeLevel);
+			}
+		}
 		
 		public void DisableHunt(){
-			Debug.Log("Disabling Hunt");
 			huntPlayer = false;
 			alerted.gameObject.SetActive(false);
 			timer = 0f;

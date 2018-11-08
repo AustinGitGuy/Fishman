@@ -20,7 +20,7 @@ public class PlayerFire : MonoBehaviour {
 					return;
 				}
 			}
-			this.gameObject.GetComponent<FishScript>().crimeLevel += 20f;
+			Managers.NPCManager.Instance.SendNoise(0f, 20f);
 			Instantiate(objFire, ironSightsPos, new Quaternion(0, 0, 0, 0));
 		}
 	}

@@ -28,9 +28,7 @@ public class MeleeAttack : MonoBehaviour {
 
 	IEnumerator KillSomething(){
 		colliding.GetComponent<GuardScript>().DeathSequence();
-		GetComponent<FishScript>().crimeLevel += 1.5f;
 		yield return new WaitForSeconds(.5f);
-		GetComponent<FishScript>().crimeLevel -= 1.5f;
 	}
 
 	void OnCollision2DEnter(Collision2D col){
