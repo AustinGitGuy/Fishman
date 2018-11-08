@@ -11,9 +11,9 @@ public class SlightlyShake : MonoBehaviour {
 	}
 	
 	void Update(){
-		iTween.ShakePosition(this.gameObject, new Vector3(.01f, 0f, 0f), Time.deltaTime);
-		if(Vector2.Distance(startPos, transform.position) >= .2){
+		if(Vector2.Distance(startPos, transform.position) >= .1){
 			transform.position = startPos;
 		}
+		iTween.ShakePosition(this.gameObject, new Vector3(.005f, 0f, 0f), Time.deltaTime);
 	}
 }

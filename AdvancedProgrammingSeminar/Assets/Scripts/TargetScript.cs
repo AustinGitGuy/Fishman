@@ -8,7 +8,9 @@ public class TargetScript : MonoBehaviour {
 	public int id;
 
 	void Start(){
-		text = transform.Find("Desc").gameObject;
+		if(!text){
+			text = transform.Find("Desc").gameObject;
+		}
 		text.SetActive(false);
 	}
 

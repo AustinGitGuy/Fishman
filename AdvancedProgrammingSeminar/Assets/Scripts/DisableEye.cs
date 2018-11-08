@@ -15,7 +15,7 @@ public class DisableEye : MonoBehaviour {
 	}
 	
 	void Update(){
-		if(Managers.NPCManager.Instance.seePlayer){
+		if(Managers.NPCManager.Instance.seePlayer && !Managers.PlayerManager.Instance.cutscene){
 			eye.SetActive(true);
 			if(deactivate){
 				sys.Play();
