@@ -18,6 +18,7 @@ public class GuardScript : MonoBehaviour {
 	public bool alertMode;
 	public bool dead;
 	public bool seePlayer;
+	bool hearPlayer;
 	bool firing;
 	bool pickedUp;
 	public bool citizen;
@@ -36,11 +37,14 @@ public class GuardScript : MonoBehaviour {
 	}
 
 	void Update(){
-		StartCoroutine(CheckDetection());
-		HuntPlayer();
-		CheckSight();
+		if(!dead){
+			StartCoroutine(CheckDetection());
+			HuntPlayer();
+			CheckSight();
+			CheckHearing();
+			StartCoroutine(FireAtPlayer());
+		}
 		CarryBody();
-		StartCoroutine(FireAtPlayer());
 	}
 
 	void CarryBody(){
@@ -83,7 +87,7 @@ public class GuardScript : MonoBehaviour {
 		if(!seePlayer){
 			alertMode = false;
 		}
-		if(seePlayer){
+		if(seePlayer || hearPlayer){
 			Vector3 dir = player.transform.position - transform.position;
 			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
 			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -147,6 +151,30 @@ public class GuardScript : MonoBehaviour {
 		}
 		else {
 			seePlayer = false;
+		}
+	}
+
+	void CheckHearing(){
+		if(noiseDetection <= noiseDetectionAmount && crimeDetection <= crimeDetectionAmount){
+			return;
+		}
+		Vector3 dir = player.transform.position - transform.position;
+		float playerDist = Vector2.Distance(player.transform.position, transform.position);
+		if(playerDist <= sightLine){
+			RaycastHit2D[] sight = Physics2D.RaycastAll(transform.position, dir, playerDist);
+			foreach(RaycastHit2D hit in sight){
+				if(hit.transform.gameObject.tag == "Blockable" || hit.transform.gameObject.tag == "Hiding"){
+					seePlayer = false;
+					return;
+				}
+			}
+			if(!dead){
+				hearPlayer = true;
+				Debug.DrawRay(transform.position, dir, Color.red);
+			}
+		}
+		else {
+			hearPlayer = false;
 		}
 	}
 

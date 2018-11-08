@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerFire : MonoBehaviour {
+
 	public GameObject objFire;
+	GameObject particles;
 	public bool hasGun;
+
+	void Start(){
+		particles = transform.Find("Particles").gameObject;
+	}
 
 	void Update(){
 		Fire();
@@ -27,8 +33,7 @@ public class PlayerFire : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col){
 		if(col.name == "Gun" && Vector2.Distance(col.transform.position, this.transform.position) <= 2){
-			col.transform.Find("Particles").GetComponent<PlayThenDie>().Play();
-			col.transform.DetachChildren();
+			particles.GetComponent<PlayDontDie>().Play();
 			hasGun = true;
 			col.gameObject.SetActive(false);
 		}

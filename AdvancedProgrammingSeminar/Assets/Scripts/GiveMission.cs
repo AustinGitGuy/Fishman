@@ -98,7 +98,7 @@ public class GiveMission : MonoBehaviour {
 		Vector3 camPos = cam.transform.position;
 		cam.transform.position = new Vector3(view.transform.position.x, view.transform.position.y, -5);
 		target.GetComponent<TargetScript>().text.SetActive(true);
-		while(!Managers.QuestManager.Instance.checkPress){
+		while(!Managers.QuestManager.Instance.checkPress && !Input.GetKey(KeyCode.Escape)){
 			yield return null;
 		}
 		Managers.QuestManager.Instance.checkPress = false;
