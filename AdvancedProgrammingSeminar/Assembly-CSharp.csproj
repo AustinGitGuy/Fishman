@@ -98,7 +98,6 @@
      <Compile Include="Assets\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
      <Compile Include="Assets\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
      <Compile Include="Assets\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
-     <Compile Include="Assets\ReplaceSkin.cs" />
      <Compile Include="Assets\Scripts\ActivateView.cs" />
      <Compile Include="Assets\Scripts\Attacks.cs" />
      <Compile Include="Assets\Scripts\ChandelierFall.cs" />
@@ -130,6 +129,7 @@
      <Compile Include="Assets\Scripts\PowerSwitch.cs" />
      <Compile Include="Assets\Scripts\QuestManager.cs" />
      <Compile Include="Assets\Scripts\ReminderText.cs" />
+     <Compile Include="Assets\Scripts\ReplaceSkin.cs" />
      <Compile Include="Assets\Scripts\RespawnManager.cs" />
      <Compile Include="Assets\Scripts\SaveManager.cs" />
      <Compile Include="Assets\Scripts\Singleton.cs" />
