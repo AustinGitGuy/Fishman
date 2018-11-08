@@ -8,10 +8,10 @@ public class GuardScript : MonoBehaviour {
 	public Vector3 spawnPos;
 	GameObject ironSights;
 	GameObject player;
-	bool playerRad;
 	float sightLine = 15f;
 	float decayRate = .2f;
-	float detectionAmount = 7f;
+	float crimeDetectionAmount = 1f;
+	float noiseDetectionAmount = 7f;
 	float detAngle = 50f;
 	public float noiseDetection;
 	public float crimeDetection;
@@ -66,10 +66,8 @@ public class GuardScript : MonoBehaviour {
 		if(dead || citizen){
 			yield return null;
 		}
-		if(!playerRad){
-			noiseDetection -= decayRate;
-			crimeDetection -= decayRate;
-		}
+		noiseDetection -= decayRate;
+		crimeDetection -= decayRate;
 		if(noiseDetection >= 20){
 			noiseDetection = 20;
 		}
@@ -85,25 +83,19 @@ public class GuardScript : MonoBehaviour {
 		if(!seePlayer){
 			alertMode = false;
 		}
-		if(crimeDetection >= detectionAmount && seePlayer){
+		if(seePlayer){
+			Vector3 dir = player.transform.position - transform.position;
+			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+			if(transform.eulerAngles.z > 90f && transform.eulerAngles.z < 270f){
+				transform.eulerAngles = new Vector3(0, 180, -transform.eulerAngles.z + 180f);
+			}
+		}
+		if(crimeDetection >= crimeDetectionAmount && seePlayer){
 			yield return new WaitForSeconds(.5f);
 			if(!dead){
 				alertMode = true;
 				Managers.NPCManager.Instance.EnableHunt();
-				Managers.NPCManager.Instance.timer = 0f;
-			}
-		}
-		if(seePlayer && crimeDetection >= 1){
-			yield return new WaitForSeconds(.5f);
-			if(!dead){
-				alertMode = true;
-				Managers.NPCManager.Instance.EnableHunt();
-				Managers.NPCManager.Instance.timer = 0f;
-			}
-		}
-		if(Managers.NPCManager.Instance.getHunt()){
-			if(noiseDetection >= detectionAmount){
-				alertMode = true;
 				Managers.NPCManager.Instance.timer = 0f;
 			}
 		}
@@ -167,22 +159,13 @@ public class GuardScript : MonoBehaviour {
 			Vector3 dir = player.transform.position - transform.position;
 			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
 			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-		}
-		//TODO: Move towards sound
-	}
-
-	void OnTriggerExit2D(Collider2D col){
-		if(col.tag == "Noise"){
-			playerRad = false;
+			if(transform.eulerAngles.z > 90f && transform.eulerAngles.z < 270f){
+				transform.eulerAngles = new Vector3(0, 180, -transform.eulerAngles.z + 180f);
+			}
 		}
 	}
 
 	void OnTriggerStay2D(Collider2D col){
-		if(col.tag == "Noise"){
-			playerRad = true;
-			noiseDetection += col.gameObject.GetComponentInParent<FishScript>().noiseLevel;
-			crimeDetection += col.gameObject.GetComponentInParent<FishScript>().crimeLevel;
-		}
 		if(col.tag == "Target" || col.tag == "Guard"){
 			if(col.GetComponent<GuardScript>().dead){
 				Vector2 targetDir = col.transform.position - transform.position;
@@ -201,6 +184,12 @@ public class GuardScript : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	public void AddNoise(float noiseLevel, float crimeLevel){
+		float dist = Vector2.Distance(player.transform.position, transform.position);
+		noiseDetection += noiseLevel / dist;
+		crimeDetection += crimeLevel / dist;
 	}
 
 	void OnCollisionEnter2D(Collision2D col){

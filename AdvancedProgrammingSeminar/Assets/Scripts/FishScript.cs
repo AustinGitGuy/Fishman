@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class FishScript : MonoBehaviour {
 
-	//Noise level is used for everyday things (walking), crime level is used for things that are crimes (shooting, attacking, stealing, tripping alarms)
-	public float noiseLevel;
-	public float crimeLevel;
     Rigidbody2D rb;
     float xMove, yMove;
     float moveMod = 5f;
@@ -30,23 +27,10 @@ public class FishScript : MonoBehaviour {
     void Move(){
 		rb.velocity = new Vector2(xMove * moveMod, yMove * moveMod);
 		if(xMove == 0 && yMove == 0){
-			if(hiding){
-				noiseLevel = -.75f;
-			}
-			else {
-				noiseLevel = -.5f;
-			}
 			rb.velocity = Vector2.zero;
 			rb.angularVelocity = 0f;
 		}
-		else {
-			if(hiding){
-				noiseLevel = 0f;
-			}
-			else {
-				noiseLevel = .75f;
-			}
-		}
+		GenerateNoise();
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Quaternion rot = Quaternion.LookRotation(transform.position - mousePos, Vector3.forward);
         transform.rotation = rot;
@@ -55,6 +39,15 @@ public class FishScript : MonoBehaviour {
 			transform.eulerAngles = new Vector3(0, 180, -transform.eulerAngles.z + 180f);
 		}
     }
+
+	void GenerateNoise(){
+		if(hiding){
+			Managers.NPCManager.Instance.SendNoise(-.5f, -.5f);
+		}
+		else if(xMove != 0 || yMove != 0){
+			Managers.NPCManager.Instance.SendNoise(.75f, 0f);
+		}
+	}
 
 	void OnTriggerStay2D(Collider2D col){
 		if(col.tag == "Hiding"){
