@@ -23,7 +23,7 @@ public class LaunchAtPlayer : MonoBehaviour {
 		sys.gameObject.SetActive(true);
 		sys.Play();
 		if(col.gameObject.tag == "Player"){
-			Managers.PlayerManager.Instance.health--;
+			Managers.PlayerManager.Instance.health-=1.25f;
 			Destroy(this.gameObject);
 		}
 		else {
