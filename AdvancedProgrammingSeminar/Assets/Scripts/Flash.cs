@@ -1,17 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Flash : MonoBehaviour {
 
 	SpriteRenderer sprite;
+	Text textObj;
+	[SerializeField]
+	bool text;
 
 	void Start(){
-		sprite = GetComponent<SpriteRenderer>();
+		if(text){
+			textObj = GetComponent<Text>();
+		}
+		else {
+			sprite = GetComponent<SpriteRenderer>();
+		}
 		InvokeRepeating("FlashObj", Time.deltaTime, .5f);
 	}
 
 	void FlashObj(){
-		sprite.enabled = !sprite.enabled;
+		if(text){
+			textObj.enabled = !textObj.enabled;
+		}
+		else {
+			sprite.enabled = !sprite.enabled;
+		}
 	}
 }

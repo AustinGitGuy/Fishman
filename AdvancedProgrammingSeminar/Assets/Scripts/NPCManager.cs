@@ -12,8 +12,11 @@ namespace Managers{
 		Text alerted;
 		public bool seePlayer;
 		GuardScript[] people;
+		public GameObject getGold;
 
 		void Start(){
+			getGold = GameObject.Find("GetGold");
+			getGold.SetActive(false);
 			people = (GuardScript[]) GameObject.FindObjectsOfType(typeof(GuardScript));
 			alerted = GameObject.Find("AlertedText").GetComponent<Text>();
 			alerted.gameObject.SetActive(false);

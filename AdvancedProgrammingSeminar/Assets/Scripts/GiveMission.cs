@@ -81,6 +81,7 @@ public class GiveMission : MonoBehaviour {
 					Managers.PlayerManager.Instance.CoinCollected(completionBonus);
 					Managers.QuestManager.Instance.questsCompleted[id] = true;
 					exclamation.SetActive(false);
+					StartCoroutine(BlinkReward());
 				}
 				else if(Managers.QuestManager.Instance.questsAccepted[id] && viewed){
 					StartCoroutine(Cutscene());
@@ -108,5 +109,11 @@ public class GiveMission : MonoBehaviour {
 		target.GetComponent<TargetScript>().text.SetActive(false);
 		Managers.QuestManager.Instance.check.SetActive(false);
 		Managers.PlayerManager.Instance.cutscene = false;
+	}
+
+	IEnumerator BlinkReward(){
+		Managers.NPCManager.Instance.getGold.SetActive(true);
+		yield return new WaitForSeconds(2f);
+		Managers.NPCManager.Instance.getGold.SetActive(false);
 	}
 }

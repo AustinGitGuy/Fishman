@@ -6,9 +6,10 @@ public class KeyCard : MonoBehaviour {
 
 	public string color;
 	bool playerGotCard;
+	GameObject keycardObj;
 
 	void Start(){
-		
+		keycardObj = transform.Find("Keycard").gameObject;
 	}
 	
 	void Update(){
@@ -28,6 +29,7 @@ public class KeyCard : MonoBehaviour {
 				Managers.PlayerManager.Instance.greenNum++;
 				playerGotCard = true;
 			}
+			keycardObj.SetActive(false);
 		}
 	}
 }
