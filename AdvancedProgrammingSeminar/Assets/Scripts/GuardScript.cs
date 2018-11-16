@@ -22,8 +22,8 @@ public class GuardScript : MonoBehaviour {
 	bool firing;
 	bool pickedUp;
 	public bool citizen;
-	public int health = 2;
-	public int maxHealth = 2;
+	public int health = 1;
+	public int maxHealth = 1;
 	[SerializeField]
 	bool shootOnSight;
 
@@ -32,6 +32,7 @@ public class GuardScript : MonoBehaviour {
 		if(!citizen){
 			ironSights = transform.Find("IronSights").gameObject;
 		}
+		health = maxHealth;
 		player = Managers.PlayerManager.Instance.GetPlayer();
 		spawnPos = this.transform.position;
 	}
@@ -68,6 +69,7 @@ public class GuardScript : MonoBehaviour {
 
 	IEnumerator CheckDetection(){
 		if(dead || citizen){
+			seePlayer = false;
 			yield return null;
 		}
 		noiseDetection -= decayRate;

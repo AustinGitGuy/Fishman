@@ -5,7 +5,7 @@ using UnityEngine;
 public class FishScript : MonoBehaviour {
 
     Rigidbody2D rb;
-    float xMove, yMove;
+    float yMove;
     float moveMod = 5f;
 	bool hiding;
 	public bool carryingBody;
@@ -20,16 +20,10 @@ public class FishScript : MonoBehaviour {
 	}
 
     void GetInput(){
-        xMove = Input.GetAxis("Horizontal");
         yMove = Input.GetAxis("Vertical");
     }
 
     void Move(){
-		rb.velocity = new Vector2(xMove * moveMod, yMove * moveMod);
-		if(xMove == 0 && yMove == 0){
-			rb.velocity = Vector2.zero;
-			rb.angularVelocity = 0f;
-		}
 		GenerateNoise();
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Quaternion rot = Quaternion.LookRotation(transform.position - mousePos, Vector3.forward);
@@ -38,13 +32,20 @@ public class FishScript : MonoBehaviour {
 		if(transform.eulerAngles.z > 90f && transform.eulerAngles.z < 270f){
 			transform.eulerAngles = new Vector3(0, 180, -transform.eulerAngles.z + 180f);
 		}
+		if(yMove == 0){
+			rb.velocity = Vector2.zero;
+			rb.angularVelocity = 0f;
+		}
+		else {
+			rb.velocity = transform.right * moveMod;
+		}
     }
 
 	void GenerateNoise(){
 		if(hiding){
 			Managers.NPCManager.Instance.SendNoise(-.5f, -.5f);
 		}
-		else if(xMove != 0 || yMove != 0){
+		else if(yMove != 0){
 			Managers.NPCManager.Instance.SendNoise(.75f, 0f);
 		}
 	}
