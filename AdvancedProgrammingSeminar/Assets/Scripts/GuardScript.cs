@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class GuardScript : MonoBehaviour {
 
+	//Death sound is copyright Roblox
+
 	public GameObject bullet;
 	public Vector3 spawnPos;
 	GameObject ironSights;
 	GameObject player;
-	float sightLine = 15f;
+	float sightLine = 7f;
 	float decayRate = .2f;
 	float crimeDetectionAmount = 1f;
 	float noiseDetectionAmount = 7f;
@@ -44,6 +46,9 @@ public class GuardScript : MonoBehaviour {
 			CheckSight();
 			CheckHearing();
 			StartCoroutine(FireAtPlayer());
+		}
+		if(dead){
+			seePlayer = false;
 		}
 		CarryBody();
 	}
@@ -237,10 +242,10 @@ public class GuardScript : MonoBehaviour {
         if(GetComponent<Navigator>() != null){
             GetComponent<Navigator>().StopAllMovements();
         }
+		Managers.SoundManager.Instance.PlayDeathSound();
 		Debug.Log(gameObject.name + " died.");
-		GetComponent<SpriteRenderer>().color = new Color(.6f, .6f, .6f);
+		GetComponent<SpriteRenderer>().color = new Color(.7f, .7f, .7f);
 		GetComponent<PolygonCollider2D>().isTrigger = true;
 		dead = true;
-		//TODO: Do something here
 	}
 }

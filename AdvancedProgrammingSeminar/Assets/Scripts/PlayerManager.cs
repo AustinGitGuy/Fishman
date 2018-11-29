@@ -22,11 +22,12 @@ namespace Managers{
 		GameObject blueCard;
 		GameObject greenCard;
 		GameObject playerObject;
+		public LookAt arrow;
 
         public PostProcessingProfile ppProfile;
 
 		void Start(){
-			//Application.targetFrameRate = 60;
+			arrow = GameObject.Find("Arrow").GetComponent<LookAt>();
 			GetPlayer();
 			greenCard = GameObject.Find("GreenCard");
 			redCard = GameObject.Find("RedCard");

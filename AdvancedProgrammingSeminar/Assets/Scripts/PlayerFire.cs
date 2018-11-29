@@ -27,6 +27,7 @@ public class PlayerFire : MonoBehaviour {
 				cooldown = false;
 				yield return null;
 			}
+			Managers.SoundManager.Instance.PlayColtSound();
 			Managers.NPCManager.Instance.SendNoise(0f, 20f);
 			Instantiate(objFire, ironSightsPos, new Quaternion(0, 0, 0, 0));
 			yield return new WaitForSeconds(.25f);

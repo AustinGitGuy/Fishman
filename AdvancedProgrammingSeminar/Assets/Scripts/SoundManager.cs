@@ -5,12 +5,19 @@ using UnityEngine;
 namespace Managers {
 	public class SoundManager : Singleton<SoundManager> {
 
-		void Start(){
-			
+		[SerializeField]
+		AudioSource deathSound;
+		[SerializeField]
+		AudioSource coltSound;
+		[SerializeField]
+		AudioSource backgroundMusic;
+
+		public void PlayDeathSound(){
+			deathSound.Play();
 		}
 
-		void Update(){
-		
+		public void PlayColtSound(){
+			coltSound.Play();
 		}
 	}
 }

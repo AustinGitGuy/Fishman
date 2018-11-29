@@ -46,6 +46,7 @@ public class GiveMission : MonoBehaviour {
 			if(Vector3.Distance(player.transform.position, this.transform.position) <= 3){
 				viewed = true;
 				if(!targetGuard.dead){
+					ArrowLookAt();
 					Managers.QuestManager.Instance.check.SetActive(true);
 					Managers.QuestManager.Instance.x.SetActive(true);
 					Managers.PlayerManager.Instance.cutscene = true;
@@ -91,6 +92,7 @@ public class GiveMission : MonoBehaviour {
 	}
 
 	public IEnumerator Cutscene(){
+		ArrowLookAt();
 		Managers.PlayerManager.Instance.cutscene = true;
 		Managers.QuestManager.Instance.check.SetActive(true);
 		canvas.alpha = 0f;
@@ -109,6 +111,10 @@ public class GiveMission : MonoBehaviour {
 		target.GetComponent<TargetScript>().text.SetActive(false);
 		Managers.QuestManager.Instance.check.SetActive(false);
 		Managers.PlayerManager.Instance.cutscene = false;
+	}
+
+	void ArrowLookAt(){
+		Managers.PlayerManager.Instance.arrow.target = target.transform;
 	}
 
 	IEnumerator BlinkReward(){

@@ -6,6 +6,7 @@ public class FishScript : MonoBehaviour {
 
     Rigidbody2D rb;
     float yMove;
+	float xMove;
     float moveMod = 5f;
 	bool hiding;
 	public bool carryingBody;
@@ -21,6 +22,7 @@ public class FishScript : MonoBehaviour {
 
     void GetInput(){
         yMove = Input.GetAxis("Vertical");
+		xMove = Input.GetAxis("Horizontal");
     }
 
     void Move(){
@@ -32,13 +34,7 @@ public class FishScript : MonoBehaviour {
 		if(transform.eulerAngles.z > 90f && transform.eulerAngles.z < 270f){
 			transform.eulerAngles = new Vector3(0, 180, -transform.eulerAngles.z + 180f);
 		}
-		if(yMove == 0){
-			rb.velocity = Vector2.zero;
-			rb.angularVelocity = 0f;
-		}
-		else {
-			rb.velocity = transform.right * moveMod;
-		}
+		rb.velocity = new Vector2(xMove, yMove) * moveMod;
     }
 
 	void GenerateNoise(){
