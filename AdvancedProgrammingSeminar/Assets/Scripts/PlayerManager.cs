@@ -27,7 +27,6 @@ namespace Managers{
         public PostProcessingProfile ppProfile;
 
 		void Start(){
-			arrow = GameObject.Find("Arrow").GetComponent<LookAt>();
 			GetPlayer();
 			greenCard = GameObject.Find("GreenCard");
 			redCard = GameObject.Find("RedCard");

@@ -25,7 +25,7 @@ namespace Managers{
 		void Update(){
 			if(huntPlayer){
 				timer+=.016f;
-				if(timer >= 20f){
+				if(timer >= 10f){
 					DisableHunt();
 				}
 			}

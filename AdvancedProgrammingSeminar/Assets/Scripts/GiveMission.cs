@@ -19,6 +19,8 @@ public class GiveMission : MonoBehaviour {
 	JournalRender journal;
 	CanvasGroup canvas;
 
+	public bool targetDead;
+
 	void Start(){
 		player = Managers.PlayerManager.Instance.GetPlayer();
 		cam = GameObject.FindGameObjectWithTag("MainCamera");
@@ -38,6 +40,12 @@ public class GiveMission : MonoBehaviour {
 			if(!Managers.QuestManager.Instance.questsCompleted[id]){
 				exclamation.SetActive(true);
 			}
+		}
+		if(targetGuard.dead){
+			targetDead = true;
+		}
+		else {
+			targetDead = false;
 		}
 	}
 
@@ -78,10 +86,11 @@ public class GiveMission : MonoBehaviour {
 		}
 		if(Input.GetKeyDown(KeyCode.E) && viewed && !Managers.QuestManager.Instance.questsCompleted[id]){
 			if(Vector3.Distance(player.transform.position, this.transform.position) <= 3){
-				if(targetGuard.dead){
+				if(targetDead){
 					Managers.PlayerManager.Instance.CoinCollected(completionBonus);
 					Managers.QuestManager.Instance.questsCompleted[id] = true;
 					exclamation.SetActive(false);
+					Managers.PlayerManager.Instance.arrow.target = null;
 					StartCoroutine(BlinkReward());
 				}
 				else if(Managers.QuestManager.Instance.questsAccepted[id] && viewed){

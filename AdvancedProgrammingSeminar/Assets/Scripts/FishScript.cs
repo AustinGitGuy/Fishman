@@ -35,6 +35,10 @@ public class FishScript : MonoBehaviour {
 			transform.eulerAngles = new Vector3(0, 180, -transform.eulerAngles.z + 180f);
 		}
 		rb.velocity = new Vector2(xMove, yMove) * moveMod;
+		if(Mathf.Abs(xMove) == 0 && Mathf.Abs(yMove) == 0){
+			rb.velocity = Vector2.zero;
+			rb.angularVelocity = 0f;
+		}
     }
 
 	void GenerateNoise(){

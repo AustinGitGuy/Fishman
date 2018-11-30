@@ -15,7 +15,7 @@ public class InspectObject : MonoBehaviour {
 	}
 	
 	void Update(){
-		if(Vector2.Distance(player.transform.position, this.transform.position) <= 3){
+		if(Vector2.Distance(player.transform.position, this.transform.position) <= 4){
 			if(Input.GetKeyDown(KeyCode.E) || inspecting){
 				inspecting = true;
 				text.FadeIn();

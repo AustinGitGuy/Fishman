@@ -244,7 +244,7 @@ public class GuardScript : MonoBehaviour {
         }
 		Managers.SoundManager.Instance.PlayDeathSound();
 		Debug.Log(gameObject.name + " died.");
-		GetComponent<SpriteRenderer>().color = new Color(.7f, .7f, .7f);
+		GetComponent<SpriteRenderer>().color = new Color(.2f, .2f, .2f);
 		GetComponent<PolygonCollider2D>().isTrigger = true;
 		dead = true;
 	}
