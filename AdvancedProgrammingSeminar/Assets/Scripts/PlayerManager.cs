@@ -22,11 +22,18 @@ namespace Managers{
 		GameObject blueCard;
 		GameObject greenCard;
 		GameObject playerObject;
+<<<<<<< HEAD
+=======
+		public LookAt arrow;
+>>>>>>> a4e04b1c5ccf3fec7e21069d0837a035e5217077
 
         public PostProcessingProfile ppProfile;
 
 		void Start(){
+<<<<<<< HEAD
 			//Application.targetFrameRate = 60;
+=======
+>>>>>>> a4e04b1c5ccf3fec7e21069d0837a035e5217077
 			GetPlayer();
 			greenCard = GameObject.Find("GreenCard");
 			redCard = GameObject.Find("RedCard");
