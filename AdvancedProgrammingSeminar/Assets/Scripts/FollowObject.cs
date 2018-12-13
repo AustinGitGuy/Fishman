@@ -9,9 +9,15 @@ public class FollowObject : MonoBehaviour {
 	float yOffset;
 	float xOffset;
 
+    FadingText text;
+
 	void Start(){
 		xOffset = transform.position.x - follow.position.x;
 		yOffset = transform.position.y - follow.position.y;
+        text = GetComponent<FadingText>();
+        if(text && (follow.tag == "Target" || follow.tag == "Guard")){
+            text.setFade(true);
+        }
 	}
 	
 	void Update(){
