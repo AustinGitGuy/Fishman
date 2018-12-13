@@ -19,11 +19,8 @@ public class GiveMission : MonoBehaviour {
 	JournalRender journal;
 	CanvasGroup canvas;
 
-<<<<<<< HEAD
-=======
 	public bool targetDead;
 
->>>>>>> a4e04b1c5ccf3fec7e21069d0837a035e5217077
 	void Start(){
 		player = Managers.PlayerManager.Instance.GetPlayer();
 		cam = GameObject.FindGameObjectWithTag("MainCamera");
@@ -44,15 +41,12 @@ public class GiveMission : MonoBehaviour {
 				exclamation.SetActive(true);
 			}
 		}
-<<<<<<< HEAD
-=======
 		if(targetGuard.dead){
 			targetDead = true;
 		}
 		else {
 			targetDead = false;
 		}
->>>>>>> a4e04b1c5ccf3fec7e21069d0837a035e5217077
 	}
 
 	IEnumerator GetInput(){
@@ -60,10 +54,7 @@ public class GiveMission : MonoBehaviour {
 			if(Vector3.Distance(player.transform.position, this.transform.position) <= 3){
 				viewed = true;
 				if(!targetGuard.dead){
-<<<<<<< HEAD
-=======
 					ArrowLookAt();
->>>>>>> a4e04b1c5ccf3fec7e21069d0837a035e5217077
 					Managers.QuestManager.Instance.check.SetActive(true);
 					Managers.QuestManager.Instance.x.SetActive(true);
 					Managers.PlayerManager.Instance.cutscene = true;
@@ -95,18 +86,11 @@ public class GiveMission : MonoBehaviour {
 		}
 		if(Input.GetKeyDown(KeyCode.E) && viewed && !Managers.QuestManager.Instance.questsCompleted[id]){
 			if(Vector3.Distance(player.transform.position, this.transform.position) <= 3){
-<<<<<<< HEAD
-				if(targetGuard.dead){
-					Managers.PlayerManager.Instance.CoinCollected(completionBonus);
-					Managers.QuestManager.Instance.questsCompleted[id] = true;
-					exclamation.SetActive(false);
-=======
 				if(targetDead){
 					Managers.PlayerManager.Instance.CoinCollected(completionBonus);
 					Managers.QuestManager.Instance.questsCompleted[id] = true;
 					exclamation.SetActive(false);
 					Managers.PlayerManager.Instance.arrow.target = null;
->>>>>>> a4e04b1c5ccf3fec7e21069d0837a035e5217077
 					StartCoroutine(BlinkReward());
 				}
 				else if(Managers.QuestManager.Instance.questsAccepted[id] && viewed){
@@ -117,10 +101,7 @@ public class GiveMission : MonoBehaviour {
 	}
 
 	public IEnumerator Cutscene(){
-<<<<<<< HEAD
-=======
 		ArrowLookAt();
->>>>>>> a4e04b1c5ccf3fec7e21069d0837a035e5217077
 		Managers.PlayerManager.Instance.cutscene = true;
 		Managers.QuestManager.Instance.check.SetActive(true);
 		canvas.alpha = 0f;
@@ -141,13 +122,10 @@ public class GiveMission : MonoBehaviour {
 		Managers.PlayerManager.Instance.cutscene = false;
 	}
 
-<<<<<<< HEAD
-=======
 	void ArrowLookAt(){
 		Managers.PlayerManager.Instance.arrow.target = target.transform;
 	}
 
->>>>>>> a4e04b1c5ccf3fec7e21069d0837a035e5217077
 	IEnumerator BlinkReward(){
 		Managers.NPCManager.Instance.getGold.SetActive(true);
 		yield return new WaitForSeconds(2f);

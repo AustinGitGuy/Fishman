@@ -6,10 +6,7 @@ public class FishScript : MonoBehaviour {
 
     Rigidbody2D rb;
     float yMove;
-<<<<<<< HEAD
-=======
 	float xMove;
->>>>>>> a4e04b1c5ccf3fec7e21069d0837a035e5217077
     float moveMod = 5f;
 	bool hiding;
 	public bool carryingBody;
@@ -25,10 +22,7 @@ public class FishScript : MonoBehaviour {
 
     void GetInput(){
         yMove = Input.GetAxis("Vertical");
-<<<<<<< HEAD
-=======
 		xMove = Input.GetAxis("Horizontal");
->>>>>>> a4e04b1c5ccf3fec7e21069d0837a035e5217077
     }
 
     void Move(){
@@ -40,21 +34,11 @@ public class FishScript : MonoBehaviour {
 		if(transform.eulerAngles.z > 90f && transform.eulerAngles.z < 270f){
 			transform.eulerAngles = new Vector3(0, 180, -transform.eulerAngles.z + 180f);
 		}
-<<<<<<< HEAD
-		if(yMove == 0){
-			rb.velocity = Vector2.zero;
-			rb.angularVelocity = 0f;
-		}
-		else {
-			rb.velocity = transform.right * moveMod;
-		}
-=======
 		rb.velocity = new Vector2(xMove, yMove) * moveMod;
 		if(Mathf.Abs(xMove) == 0 && Mathf.Abs(yMove) == 0){
 			rb.velocity = Vector2.zero;
 			rb.angularVelocity = 0f;
 		}
->>>>>>> a4e04b1c5ccf3fec7e21069d0837a035e5217077
     }
 
 	void GenerateNoise(){

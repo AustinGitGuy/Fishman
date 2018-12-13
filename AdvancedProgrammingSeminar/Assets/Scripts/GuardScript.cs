@@ -4,20 +4,13 @@ using UnityEngine;
 
 public class GuardScript : MonoBehaviour {
 
-<<<<<<< HEAD
-=======
 	//Death sound is copyright Roblox
 
->>>>>>> a4e04b1c5ccf3fec7e21069d0837a035e5217077
 	public GameObject bullet;
 	public Vector3 spawnPos;
 	GameObject ironSights;
 	GameObject player;
-<<<<<<< HEAD
-	float sightLine = 15f;
-=======
 	float sightLine = 7f;
->>>>>>> a4e04b1c5ccf3fec7e21069d0837a035e5217077
 	float decayRate = .2f;
 	float crimeDetectionAmount = 1f;
 	float noiseDetectionAmount = 7f;
@@ -54,12 +47,9 @@ public class GuardScript : MonoBehaviour {
 			CheckHearing();
 			StartCoroutine(FireAtPlayer());
 		}
-<<<<<<< HEAD
-=======
 		if(dead){
 			seePlayer = false;
 		}
->>>>>>> a4e04b1c5ccf3fec7e21069d0837a035e5217077
 		CarryBody();
 	}
 
@@ -252,18 +242,10 @@ public class GuardScript : MonoBehaviour {
         if(GetComponent<Navigator>() != null){
             GetComponent<Navigator>().StopAllMovements();
         }
-<<<<<<< HEAD
-		Debug.Log(gameObject.name + " died.");
-		GetComponent<SpriteRenderer>().color = new Color(.6f, .6f, .6f);
-		GetComponent<PolygonCollider2D>().isTrigger = true;
-		dead = true;
-		//TODO: Do something here
-=======
 		Managers.SoundManager.Instance.PlayDeathSound();
 		Debug.Log(gameObject.name + " died.");
 		GetComponent<SpriteRenderer>().color = new Color(.2f, .2f, .2f);
 		GetComponent<PolygonCollider2D>().isTrigger = true;
 		dead = true;
->>>>>>> a4e04b1c5ccf3fec7e21069d0837a035e5217077
 	}
 }
